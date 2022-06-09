@@ -1,5 +1,6 @@
 package com.outbound.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -7,15 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 
 @Entity
 public class User {
 
-
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private int id;
 	
 	@Column(name="first_name")
 	private String firstName;
@@ -32,16 +33,44 @@ public class User {
 	private String role;
 	
 	private boolean active;
+	
+//	------------------------ RELATIONSHIP FIELDS -----------------
+	
+	
+	@OneToMany(mappedBy="user")
+	private List<Trip> trips;
+	
+//	------------------------ CONSTRUCTORS -----------------
+	
+	
 
 	public User() {
 		super();
 	}
+	
+//	------------------------ RELATIONAL MAPPING -----------------
+	
+	
+	
+	
 
-	public Integer getId() {
+	public List<Trip> getTrips() {
+		return trips;
+	}
+
+	public void setTrips(List<Trip> trips) {
+		this.trips = trips;
+	}
+
+	
+//	------------------------ GETTERS/SETTERS -----------------
+
+
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -109,7 +138,7 @@ public class User {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(active, email, firstName, id, lastName, password, role, username);
+		return Objects.hash(active, email, firstName, id, lastName, password, role, trips, username);
 	}
 
 	@Override
@@ -122,9 +151,10 @@ public class User {
 			return false;
 		User other = (User) obj;
 		return active == other.active && Objects.equals(email, other.email)
-				&& Objects.equals(firstName, other.firstName) && Objects.equals(id, other.id)
+				&& Objects.equals(firstName, other.firstName) && id == other.id
 				&& Objects.equals(lastName, other.lastName) && Objects.equals(password, other.password)
-				&& Objects.equals(role, other.role) && Objects.equals(username, other.username);
+				&& Objects.equals(role, other.role) && Objects.equals(trips, other.trips)
+				&& Objects.equals(username, other.username);
 	}
 	
 	

@@ -35,13 +35,38 @@ public class Trip {
 	
 	private boolean success;
 
+	
+//	------------------------ RELATIONSHIP FIELDS -----------------
+
+	
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
 	
+	
+//	------------------------ CONSTRUCTORS -----------------
+
+	
+	
+	
 	public Trip() {
 		super();
 	}
+	
+//	------------------------ RELATIONAL MAPPING -----------------
+
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+//	------------------------ GETTERS/SETTERS -----------------
+
+	
 
 	public Integer getId() {
 		return id;
@@ -92,14 +117,8 @@ public class Trip {
 	}
 	
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
+	
+	
 	@Override
 	public String toString() {
 		return "HuntTrip [id=" + id + ", name=" + name + ", description=" + description + ", startDate=" + startDate
