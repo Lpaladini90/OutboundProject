@@ -9,13 +9,22 @@
     
     
      <!-- BEGIN List Entities Here -->
-     
-     <!-- User Entities  -->
+    
      
     <class>com.outbound.entities.User</class>
     <class>com.outbound.entities.Trip</class>
+    <class>com.outbound.entities.GearList</class>
      
-    
+  
+       <!-- Inventory Entities -->
+    <class>com.outbound.entities.inventory.Inventory</class>
+    <class>com.outbound.entities.inventory.Item</class>
+    <class>com.outbound.entities.inventory.ClothingCategory</class>
+    <class>com.outbound.entities.inventory.ClothingLayer</class>
+    <class>com.outbound.entities.inventory.ItemCategory</class>
+    <class>com.outbound.entities.inventory.WeaponType</class>
+     
+     
      <!-- END List Entities Here -->
     
     

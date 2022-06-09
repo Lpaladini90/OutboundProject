@@ -46,8 +46,9 @@ CREATE TABLE IF NOT EXISTS `trip` (
   `name` VARCHAR(45) NULL,
   `start_date` DATETIME NULL,
   `end_date` DATETIME NULL,
-  `description` VARCHAR(2000) NULL,
+  `description` TEXT NULL,
   `success` TINYINT NULL,
+  `create_date` DATETIME NULL,
   `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_hunt_trip_user1_idx` (`user_id` ASC),
@@ -352,8 +353,8 @@ CREATE TABLE IF NOT EXISTS `inventory` (
   `id` INT NOT NULL,
   `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_gear_inventory_user1_idx` (`user_id` ASC),
-  CONSTRAINT `fk_gear_inventory_user1`
+  INDEX `fk_inventory_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_inventory_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
     ON DELETE NO ACTION
@@ -563,44 +564,21 @@ DROP TABLE IF EXISTS `gear_list` ;
 
 CREATE TABLE IF NOT EXISTS `gear_list` (
   `id` INT NOT NULL,
-  `description` VARCHAR(45) NULL,
+  `description` TEXT NULL,
+  `active` TINYINT NULL,
   `user_id` INT NOT NULL,
-  `gear_inventory_id` INT NOT NULL,
+  `inventory_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_gear_list_user1_idx` (`user_id` ASC),
-  INDEX `fk_gear_list_gear_inventory1_idx` (`gear_inventory_id` ASC),
+  INDEX `fk_gear_list_gear_inventory1_idx` (`inventory_id` ASC),
   CONSTRAINT `fk_gear_list_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_gear_list_gear_inventory1`
-    FOREIGN KEY (`gear_inventory_id`)
+    FOREIGN KEY (`inventory_id`)
     REFERENCES `inventory` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `gear_list_has_trip`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `gear_list_has_trip` ;
-
-CREATE TABLE IF NOT EXISTS `gear_list_has_trip` (
-  `gear_list_id` INT NOT NULL,
-  `hunt_trip_id` INT NOT NULL,
-  PRIMARY KEY (`gear_list_id`, `hunt_trip_id`),
-  INDEX `fk_gear_list_has_hunt_trip_hunt_trip1_idx` (`hunt_trip_id` ASC),
-  INDEX `fk_gear_list_has_hunt_trip_gear_list1_idx` (`gear_list_id` ASC),
-  CONSTRAINT `fk_gear_list_has_hunt_trip_gear_list1`
-    FOREIGN KEY (`gear_list_id`)
-    REFERENCES `gear_list` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_gear_list_has_hunt_trip_hunt_trip1`
-    FOREIGN KEY (`hunt_trip_id`)
-    REFERENCES `trip` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -655,21 +633,21 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (1, 'Fall Antelope Hunt', NULL, NULL, 'Wyoming Hunt in the fall for antelope and mule deer', 1, 1);
-INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (2, 'Mule Deer Fall Hunt', NULL, NULL, 'Hunting Mule Deer in Colorado', 0, 1);
-INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (3, 'Black Bear Spring Hunt ', NULL, NULL, 'Alaskan Black bear hunt in the spring', 0, 1);
-INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (4, 'Roosevelt Elk Hunt', NULL, NULL, NULL, 0, 1);
-INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (5, 'Alaska Caribou Hunt', NULL, NULL, NULL, 1, 1);
-INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (6, 'White Tail Hunt', NULL, NULL, NULL, 1, 1);
-INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (7, 'Sage Grouse Hunt', NULL, NULL, NULL, 0, 1);
-INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (8, 'Grouse Bird Hunt', NULL, NULL, NULL, 1, 1);
-INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (9, 'Black Bear Spring Hunt ', NULL, NULL, NULL, 1, 1);
-INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (10, 'Mule Deer Wyoming Hunt', NULL, NULL, NULL, 1, 1);
-INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (11, 'Pheasant Hunt Nebraska', NULL, NULL, NULL, 0, 1);
-INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (12, 'Black Bear Spring Hunt ', NULL, NULL, NULL, 0, 1);
-INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (13, 'Racoon Hunt Wi', NULL, NULL, NULL, 1, 1);
-INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (14, 'Pheasant Hunt Washington', NULL, NULL, NULL, 0, 1);
-INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `user_id`) VALUES (15, 'Forest Grouse Hunt Idaho', NULL, NULL, NULL, 1, 1);
+INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `create_date`, `user_id`) VALUES (1, 'Fall Antelope Hunt', NULL, NULL, 'Wyoming Hunt in the fall for antelope and mule deer', 1, NULL, 1);
+INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `create_date`, `user_id`) VALUES (2, 'Mule Deer Fall Hunt', NULL, NULL, 'Hunting Mule Deer in Colorado', 0, NULL, 1);
+INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `create_date`, `user_id`) VALUES (3, 'Black Bear Spring Hunt ', NULL, NULL, 'Alaskan Black bear hunt in the spring', 0, NULL, 1);
+INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `create_date`, `user_id`) VALUES (4, 'Roosevelt Elk Hunt', NULL, NULL, NULL, 0, NULL, 1);
+INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `create_date`, `user_id`) VALUES (5, 'Alaska Caribou Hunt', NULL, NULL, NULL, 1, NULL, 1);
+INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `create_date`, `user_id`) VALUES (6, 'White Tail Hunt', NULL, NULL, NULL, 1, NULL, 1);
+INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `create_date`, `user_id`) VALUES (7, 'Sage Grouse Hunt', NULL, NULL, NULL, 0, NULL, 1);
+INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `create_date`, `user_id`) VALUES (8, 'Grouse Bird Hunt', NULL, NULL, NULL, 1, NULL, 1);
+INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `create_date`, `user_id`) VALUES (9, 'Black Bear Spring Hunt ', NULL, NULL, NULL, 1, NULL, 1);
+INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `create_date`, `user_id`) VALUES (10, 'Mule Deer Wyoming Hunt', NULL, NULL, NULL, 1, NULL, 1);
+INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `create_date`, `user_id`) VALUES (11, 'Pheasant Hunt Nebraska', NULL, NULL, NULL, 0, NULL, 1);
+INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `create_date`, `user_id`) VALUES (12, 'Black Bear Spring Hunt ', NULL, NULL, NULL, 0, NULL, 1);
+INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `create_date`, `user_id`) VALUES (13, 'Racoon Hunt Wi', NULL, NULL, NULL, 1, NULL, 1);
+INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `create_date`, `user_id`) VALUES (14, 'Pheasant Hunt Washington', NULL, NULL, NULL, 0, NULL, 1);
+INSERT INTO `trip` (`id`, `name`, `start_date`, `end_date`, `description`, `success`, `create_date`, `user_id`) VALUES (15, 'Forest Grouse Hunt Idaho', NULL, NULL, NULL, 1, NULL, 1);
 
 COMMIT;
 
@@ -1038,19 +1016,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `gear_list` (`id`, `description`, `user_id`, `gear_inventory_id`) VALUES (1, 'Antelope Hunt List', 1, 1);
-INSERT INTO `gear_list` (`id`, `description`, `user_id`, `gear_inventory_id`) VALUES (2, 'Mule Deer Hunt', 1, 1);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `gear_list_has_trip`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `outbounddb`;
-INSERT INTO `gear_list_has_trip` (`gear_list_id`, `hunt_trip_id`) VALUES (1, 1);
-INSERT INTO `gear_list_has_trip` (`gear_list_id`, `hunt_trip_id`) VALUES (2, 2);
+INSERT INTO `gear_list` (`id`, `description`, `active`, `user_id`, `inventory_id`) VALUES (1, 'Antelope Hunt List', 1, 1, 1);
+INSERT INTO `gear_list` (`id`, `description`, `active`, `user_id`, `inventory_id`) VALUES (2, 'Mule Deer Hunt', 1, 1, 1);
 
 COMMIT;
 
