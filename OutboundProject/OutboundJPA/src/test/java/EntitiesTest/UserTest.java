@@ -72,7 +72,7 @@ class UserTest {
 		assertEquals("Lucas", user.getFirstName());
 		assertEquals("lpaladini@me.com", user.getEmail());
 		
-	}
+	}  
 	
 
 	@Test
