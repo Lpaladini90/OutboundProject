@@ -12,8 +12,8 @@
      
      <!-- User Entities  -->
      
-    <class>com.skilldistillery.outbound.entities.user.User</class>
-    <class>com.skilldistillery.outbound.entities.user.Address</class>
+    <class>com.outbound.entities.User</class>
+    <class>com.outbound.entities.Trip</class>
      
     
      <!-- END List Entities Here -->
