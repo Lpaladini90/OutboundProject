@@ -896,8 +896,8 @@ INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `inven
 INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `inventory_id`) VALUES (8, 'Black Diamond', 'Alpine Carbon Cork', 'Trekking Poles - Pair', 1.06, 1);
 INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `inventory_id`) VALUES (9, 'SPOT', 'Gen 3', 'The latest generation of award-winning SPOT devices from Globalstar, the SPOT Gen3 offers a critical, life-saving line of communication when traveling beyond cellular coverage zones. ', .25, 1);
 INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `inventory_id`) VALUES (10, 'Counter Assault', 'Bear Spray', 'Bear protection with holster', .5, 1);
-INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `inventory_id`) VALUES (11, 'Matthews', 'Vertix', 'Compound Bow', NULL, 1);
-INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `inventory_id`) VALUES (12, 'First Lite', 'Corrugate Pants', 'brown general hunt pants', NULL, 1);
+INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `inventory_id`) VALUES (11, 'Matthews', 'Vertix', 'Compound Bow', 4.75, 1);
+INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `inventory_id`) VALUES (12, 'First Lite', 'Corrugate Pants', 'brown general hunt pants', 1, 1);
 
 COMMIT;
 

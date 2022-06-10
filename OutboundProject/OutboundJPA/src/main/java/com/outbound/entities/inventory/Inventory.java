@@ -19,7 +19,7 @@ public class Inventory {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private int id;
 
 //	------------------------ RELATIONSHIP FIELDS -----------------
 
@@ -29,6 +29,9 @@ public class Inventory {
 
 	@OneToMany(mappedBy = "inventory")
 	private List<Item> items;
+
+	@OneToMany(mappedBy = "inventory")
+	private List<GearList> lists;
 
 //	------------- CONSTRUCTORS -----------------
 
@@ -46,17 +49,13 @@ public class Inventory {
 		this.user = user;
 	}
 
-//	------------- GETTERS / SETTERS -----------------
-
-	public Integer getId() {
-		return id;
+	public List<GearList> getLists() {
+		return lists;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setLists(List<GearList> lists) {
+		this.lists = lists;
 	}
-
-//	------------- TO STRING -----------------
 
 	public List<Item> getItems() {
 		return items;
@@ -66,9 +65,21 @@ public class Inventory {
 		this.items = items;
 	}
 
+//	------------- GETTERS / SETTERS -----------------
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+//	------------- TO STRING -----------------
+
 	@Override
 	public String toString() {
-		return "Inventory [id=" + id + ", user=" + user + ", items=" + items + "]";
+		return "Inventory [id=" + id + ", user=" + user + ", items=" + items + ", lists=" + lists + "]";
 	}
 
 //	------------- HASHCODE & EQUALS -----------------

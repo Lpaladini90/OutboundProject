@@ -16,7 +16,7 @@ public class Item {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private int id;
 	
 	
 	private String brand;
@@ -28,6 +28,8 @@ public class Item {
 	
 	private double weight;
 	
+//	------------------------ RELATIONSHIP FIELDS -----------------
+
 	
 	@ManyToOne
 	@JoinColumn(name="inventory_id")
@@ -40,13 +42,24 @@ public class Item {
 		super();
 	}
 	
+//	------------- RELATIONAL MAPPING -----------------
+	
+
+	public Inventory getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
+	}
+	
 //	------------- GETTERS / SETTERS -----------------
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -85,26 +98,18 @@ public class Item {
 //	------------- RELATIONAL MAPPING GETTERS / SETTERS -----------------
 
 
-	public Inventory getInventory() {
-		return inventory;
-	}
-
-	public void setInventory(Inventory inventory) {
-		this.inventory = inventory;
-	}
 	
-//	------------- TO STRING -----------------
-	@Override
+@Override
 	public String toString() {
 		return "Item [id=" + id + ", brand=" + brand + ", modelName=" + modelName + ", description=" + description
-				+ ", weight=" + weight + "]";
+				+ ", weight=" + weight + ", inventory=" + inventory + "]";
 	}
 
 //	------------- HASHCODE & EQUALS -----------------
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(brand, description, id, modelName, weight);
+		return Objects.hash(brand, description, id, inventory, modelName, weight);
 	}
 
 	@Override
@@ -116,8 +121,8 @@ public class Item {
 		if (getClass() != obj.getClass())
 			return false;
 		Item other = (Item) obj;
-		return Objects.equals(brand, other.brand) && Objects.equals(description, other.description)
-				&& Objects.equals(id, other.id) && Objects.equals(modelName, other.modelName)
+		return Objects.equals(brand, other.brand) && Objects.equals(description, other.description) && id == other.id
+				&& Objects.equals(inventory, other.inventory) && Objects.equals(modelName, other.modelName)
 				&& Double.doubleToLongBits(weight) == Double.doubleToLongBits(other.weight);
 	}
 	

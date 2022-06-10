@@ -71,5 +71,55 @@ class GearListTest {
 		
 		
 	}  
+	@Test
+	@DisplayName("Testing entity GearList to User in database")
+	void test_entity_gearlist_to_user_in_database_connection() {
+		
+//		mysql> select * from gear_list join user on user.id = gear_list.user_id where user.id = 1;
+//		+----+--------------------+--------+---------+--------------+----+-------------+--------------------------------------------------------------+------------+-----------+------------------+-------+----------------+----------------+--------+
+//		| id | description        | active | user_id | inventory_id | id | username    | password                                                     | first_name | last_name | email            | role  | description    | phone          | active |
+//		+----+--------------------+--------+---------+--------------+----+-------------+--------------------------------------------------------------+------------+-----------+------------------+-------+----------------+----------------+--------+
+//		|  1 | Antelope Hunt List |      1 |       1 |            1 |  1 | lpaladini90 | $2a$10$jUUiSZOm80cSZGNAQLHRLutd3C2sw3or3GOCUzSXzixHw6NC9Phv. | Lucas      | Paladini  | lpaladini@me.com | ADMIN | I like to hunt | (509)-993-8866 |      1 |
+//		|  2 | Mule Deer Hunt     |      1 |       1 |            1 |  1 | lpaladini90 | $2a$10$jUUiSZOm80cSZGNAQLHRLutd3C2sw3or3GOCUzSXzixHw6NC9Phv. | Lucas      | Paladini  | lpaladini@me.com | ADMIN | I like to hunt | (509)-993-8866 |      1 |
+//		+----+--------------------+--------+---------+--------------+----+-------------+--------------------------------------------------------------+------------+-----------+------------------+-------+----------------+----------------+--------+
+//		2 rows in set (0.00 sec)
+		
+		
+		assertNotNull(list);
+		assertNotNull(list.getId());
+		assertEquals("Lucas", list.getUser().getFirstName());
+		
+		
+	}  
+	@Test
+	@DisplayName("Testing entity GearList to Inventory in database")
+	void test_entity_gearlist_to_inventory_in_database_connection() {
+		
+//		mysql> select * from gear_list join inventory on inventory.id = gear_list.inventory_id where inventory.id = 1;
+//		+----+--------------------+--------+---------+--------------+----+---------+
+//		| id | description        | active | user_id | inventory_id | id | user_id |
+//		+----+--------------------+--------+---------+--------------+----+---------+
+//		|  1 | Antelope Hunt List |      1 |       1 |            1 |  1 |       1 |
+//		|  2 | Mule Deer Hunt     |      1 |       1 |            1 |  1 |       1 |
+//		+----+--------------------+--------+---------+--------------+----+---------+
+//		2 rows in set (0.00 sec)
+		
+		assertNotNull(list);
+		assertNotNull(list.getId());
+		assertEquals(1, list.getInventory().getId());
+		
+		
+	}  
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
