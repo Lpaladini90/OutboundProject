@@ -1,5 +1,6 @@
 package com.outbound.entities.inventory;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -7,48 +8,94 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="item_category")
+@Table(name = "item_category")
 public class ItemCategory {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private int id;
+
+	@Column(name = "type_name")
+	private String typeName;
+
+//	------------------------ RELATIONSHIP FIELDS -----------------
+
+	@OneToMany(mappedBy = "category")
+	private List<Item> items;
+
 	
-	@Column(name="gear_type")
-	private String gearType;
+	@OneToMany(mappedBy="category")
+	private List<WeaponType> weaponTypes;
+	
+	
+//	------------- CONSTRUCTORS -----------------
 
 	public ItemCategory() {
 		super();
 	}
+	
+//	------------- RELATIONAL MAPPING -----------------
+	
+	
+	
+	public List<WeaponType> getWeaponTypes() {
+		return weaponTypes;
+	}
 
-	public Integer getId() {
+	public void setWeaponTypes(List<WeaponType> weaponTypes) {
+		this.weaponTypes = weaponTypes;
+	}
+
+	public List<Item> getItems() {
+		return items;
+	} 
+	
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+
+//	------------- GETTERS / SETTERS -----------------
+
+
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
 	public String getGearType() {
-		return gearType;
+		return typeName;
 	}
 
-	public void setGearType(String gearType) {
-		this.gearType = gearType;
+	public void setGearType(String typeName) {
+		this.typeName = typeName;
 	}
 
+	public String getTypeName() {
+		return typeName;
+	}
+
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
+
+	// ------------- TO STRING -----------------
 	@Override
 	public String toString() {
-		return "ItemCategory [id=" + id + ", gearType=" + gearType + "]";
+		return "ItemCategory [id=" + id + ", gearType=" + typeName + "]";
 	}
+
+//	------------- HASHCODE & EQUALS -----------------
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(gearType, id);
+		return Objects.hash(typeName, id);
 	}
 
 	@Override
@@ -60,9 +107,7 @@ public class ItemCategory {
 		if (getClass() != obj.getClass())
 			return false;
 		ItemCategory other = (ItemCategory) obj;
-		return Objects.equals(gearType, other.gearType) && Objects.equals(id, other.id);
+		return Objects.equals(typeName, other.typeName) && Objects.equals(id, other.id);
 	}
 
-	
-	
 }

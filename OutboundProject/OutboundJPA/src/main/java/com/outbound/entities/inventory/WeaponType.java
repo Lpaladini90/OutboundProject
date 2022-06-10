@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,9 +23,33 @@ public class WeaponType {
 	
 	private String description;
 
+//	------------------------ RELATIONSHIP FIELDS -----------------
+
+	@ManyToOne
+	@JoinColumn(name="item_category_id")
+	private ItemCategory category; 
+	
+	
+//	------------- CONSTRUCTORS -----------------
+
+	
 	public WeaponType() {
 		super();
 	}
+
+//	------------- RELATIONAL MAPPING -----------------
+
+	public ItemCategory getCategory() {
+		return category;
+	}
+	
+	public void setCategory(ItemCategory category) {
+		this.category = category;
+	}
+	
+//	------------- GETTERS / SETTERS -----------------
+
+	
 
 	public Integer getId() {
 		return id;

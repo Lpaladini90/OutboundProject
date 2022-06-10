@@ -28,6 +28,7 @@ public class Item {
 	
 	private double weight;
 	
+	private boolean active;
 //	------------------------ RELATIONSHIP FIELDS -----------------
 
 	
@@ -35,6 +36,10 @@ public class Item {
 	@JoinColumn(name="inventory_id")
 	private Inventory inventory;
 	
+	
+	@ManyToOne
+	@JoinColumn(name="item_category_id")
+	private ItemCategory category;
 
 	
 //	------------- CONSTRUCTORS -----------------
@@ -44,6 +49,14 @@ public class Item {
 	
 //	------------- RELATIONAL MAPPING -----------------
 	
+
+	public ItemCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(ItemCategory category) {
+		this.category = category;
+	}
 
 	public Inventory getInventory() {
 		return inventory;
@@ -95,14 +108,17 @@ public class Item {
 		this.weight = weight;
 	}
 
-//	------------- RELATIONAL MAPPING GETTERS / SETTERS -----------------
+	
+	
 
+//	------------- TO STRING -----------------
 
 	
-@Override
+	@Override
 	public String toString() {
 		return "Item [id=" + id + ", brand=" + brand + ", modelName=" + modelName + ", description=" + description
-				+ ", weight=" + weight + ", inventory=" + inventory + "]";
+				+ ", weight=" + weight + ", active=" + active + ", inventory=" + inventory + ", category=" + category
+				+ "]";
 	}
 
 //	------------- HASHCODE & EQUALS -----------------
