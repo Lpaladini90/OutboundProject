@@ -9,7 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
+import com.outbound.entities.inventory.Inventory;
 
 @Entity
 public class User {
@@ -17,42 +19,38 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(name="first_name")
+
+	@Column(name = "first_name")
 	private String firstName;
-	
-	@Column(name="last_name")
+
+	@Column(name = "last_name")
 	private String lastName;
-	
+
 	private String username;
-	
+
 	private String password;
-	
+
 	private String email;
-	
+
 	private String role;
-	
+
 	private boolean active;
-	
+
 //	------------------------ RELATIONSHIP FIELDS -----------------
-	
-	
-	@OneToMany(mappedBy="user")
+
+	@OneToMany(mappedBy = "user")
 	private List<Trip> trips;
 	
+	@OneToOne(mappedBy="user")
+	private Inventory inventory;
+
 //	------------------------ CONSTRUCTORS -----------------
-	
-	
 
 	public User() {
 		super();
 	}
-	
+
 //	------------------------ RELATIONAL MAPPING -----------------
-	
-	
-	
-	
 
 	public List<Trip> getTrips() {
 		return trips;
@@ -60,9 +58,19 @@ public class User {
 
 	public void setTrips(List<Trip> trips) {
 		this.trips = trips;
+		
 	}
-
 	
+	
+	public Inventory getInventory() {
+		return inventory;
+	}
+	
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
+	}
+	
+
 //	------------------------ GETTERS/SETTERS -----------------
 
 
@@ -130,11 +138,15 @@ public class User {
 		this.active = active;
 	}
 
+//	------------- TO STRING -----------------
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username
 				+ ", password=" + password + ", email=" + email + ", role=" + role + ", active=" + active + "]";
 	}
+	
+//	------------- HASHCODE & EQUALS -----------------
 
 	@Override
 	public int hashCode() {
@@ -156,9 +168,5 @@ public class User {
 				&& Objects.equals(role, other.role) && Objects.equals(trips, other.trips)
 				&& Objects.equals(username, other.username);
 	}
-	
-	
-	
-	
-	
+
 }

@@ -72,7 +72,7 @@ class UserTest {
 		assertEquals("Lucas", user.getFirstName());
 		assertEquals("lpaladini@me.com", user.getEmail());
 		
-	}
+	}  
 	
 
 	@Test
@@ -95,4 +95,26 @@ class UserTest {
 		assertTrue(user.getTrips().size()>0);
 		
 	}
+	
+	
+	@Test
+	@DisplayName("Testing relational mapping from user to inventory in database")
+	void test_relational_mapping_from_user_to_inventory_in_db() {
+		
+//		mysql> select * from user join inventory on inventory.user_id = user.id where user.id = 1;
+//		+----+-------------+--------------------------------------------------------------+------------+-----------+------------------+-------+----------------+----------------+--------+----+---------+
+//		| id | username    | password                                                     | first_name | last_name | email            | role  | description    | phone          | active | id | user_id |
+//		+----+-------------+--------------------------------------------------------------+------------+-----------+------------------+-------+----------------+----------------+--------+----+---------+
+//		|  1 | lpaladini90 | $2a$10$jUUiSZOm80cSZGNAQLHRLutd3C2sw3or3GOCUzSXzixHw6NC9Phv. | Lucas      | Paladini  | lpaladini@me.com | ADMIN | I like to hunt | (509)-993-8866 |      1 |  1 |       1 |
+//		+----+-------------+--------------------------------------------------------------+------------+-----------+------------------+-------+----------------+----------------+--------+----+---------+
+//		1 row in set (0.00 sec)
+		
+		assertNotNull(user);
+		assertNotNull(user.getId());
+		assertEquals(1, user.getInventory().getId());
+		
+	}
+	
+	
+	
 }
