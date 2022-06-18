@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.outbound.entities.GearList;
 import com.outbound.entities.User;
 
@@ -22,7 +23,8 @@ public class Inventory {
 	private int id;
 
 //	------------------------ RELATIONSHIP FIELDS -----------------
-
+	
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "user_id")
 	private User user;

@@ -30,7 +30,9 @@ CREATE TABLE IF NOT EXISTS `user` (
   `role` VARCHAR(45) NULL,
   `description` TEXT NULL,
   `phone` VARCHAR(200) NULL,
-  `active` TINYINT NULL,
+  `enabled` TINYINT NOT NULL DEFAULT 1,
+  `biography` TEXT NULL,
+  `image_url` TEXT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC))
 ENGINE = InnoDB;
@@ -573,7 +575,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `role`, `description`, `phone`, `active`) VALUES (1, 'lpaladini90', '$2a$10$jUUiSZOm80cSZGNAQLHRLutd3C2sw3or3GOCUzSXzixHw6NC9Phv.', 'Lucas', 'Paladini', 'lpaladini@me.com', 'ADMIN', 'I like to hunt', '(509)-993-8866', 1);
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `role`, `description`, `phone`, `enabled`, `biography`, `image_url`) VALUES (1, 'lpaladini90', '$2a$10$jUUiSZOm80cSZGNAQLHRLutd3C2sw3or3GOCUzSXzixHw6NC9Phv.', 'Lucas', 'Paladini', 'lpaladini@me.com', 'ADMIN', 'I like to hunt', '(509)-993-8866', 1, 'I like donuts', NULL);
 
 COMMIT;
 

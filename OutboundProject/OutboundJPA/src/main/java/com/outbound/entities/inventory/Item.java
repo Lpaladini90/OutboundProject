@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Item {
@@ -31,7 +33,7 @@ public class Item {
 	private boolean active;
 //	------------------------ RELATIONSHIP FIELDS -----------------
 
-	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="inventory_id")
 	private Inventory inventory;

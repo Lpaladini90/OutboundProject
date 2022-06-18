@@ -1,6 +1,8 @@
 package com.outbound.entities;
 
 import java.util.List;
+
+
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -11,7 +13,29 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.outbound.entities.inventory.Inventory;
+
+
+//mysql> desc user;
+//+-------------+---------------+------+-----+---------+----------------+
+//| Field       | Type          | Null | Key | Default | Extra          |
+//+-------------+---------------+------+-----+---------+----------------+
+//| id          | int(11)       | NO   | PRI | NULL    | auto_increment |
+//| username    | varchar(45)   | NO   | UNI | NULL    |                |
+//| password    | varchar(2000) | NO   |     | NULL    |                |
+//| first_name  | varchar(45)   | YES  |     | NULL    |                |
+//| last_name   | varchar(45)   | YES  |     | NULL    |                |
+//| email       | varchar(200)  | YES  |     | NULL    |                |
+//| role        | varchar(45)   | YES  |     | NULL    |                |
+//| description | text          | YES  |     | NULL    |                |
+//| phone       | varchar(200)  | YES  |     | NULL    |                |
+//| enabled     | tinyint(4)    | NO   |     | 1       |                |
+//| biography   | text          | YES  |     | NULL    |                |
+//| image_url   | text          | YES  |     | NULL    |                |
+//+-------------+---------------+------+-----+---------+----------------+
+//12 rows in set (0.00 sec)
+
 
 @Entity
 public class User {
@@ -28,24 +52,30 @@ public class User {
 
 	private String username;
 
-	private String password;
+	private String password; 
 
 	private String email;
 
 	private String role;
 
-	private boolean active;
+	private String biography;
+	
+	private boolean enabled;
+	
+	private String imageUrl;
 
 //	------------------------ RELATIONSHIP FIELDS -----------------
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Trip> trips;
 	
+	@JsonIgnore
 	@OneToOne(mappedBy="user")
 	private Inventory inventory;
 
 //	------------------------ CONSTRUCTORS -----------------
-
+ 
 	public User() {
 		super();
 	}
@@ -90,6 +120,14 @@ public class User {
 		this.firstName = firstName;
 	}
 
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	public String getLastName() {
 		return lastName;
 	}
@@ -130,27 +168,42 @@ public class User {
 		this.role = role;
 	}
 
-	public boolean isActive() {
-		return active;
+	
+
+	public String getBiography() {
+		return biography;
 	}
 
-	public void setActive(boolean active) {
-		this.active = active;
+	public void setBiography(String biography) {
+		this.biography = biography;
+	}
+	
+	
+
+	public String getImageUrl() {
+		return imageUrl;
 	}
 
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 //	------------- TO STRING -----------------
+
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username
-				+ ", password=" + password + ", email=" + email + ", role=" + role + ", active=" + active + "]";
+				+ ", password=" + password + ", email=" + email + ", role=" + role + ", biography=" + biography
+				+ ", enabled=" + enabled + ", imageUrl=" + imageUrl + ", trips=" + trips + ", inventory=" + inventory
+				+ "]";
 	}
 	
 //	------------- HASHCODE & EQUALS -----------------
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(active, email, firstName, id, lastName, password, role, trips, username);
+		return Objects.hash(biography, email, enabled, firstName, id, imageUrl, inventory, lastName, password, role,
+				trips, username);
 	}
 
 	@Override
@@ -162,8 +215,9 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return active == other.active && Objects.equals(email, other.email)
-				&& Objects.equals(firstName, other.firstName) && id == other.id
+		return Objects.equals(biography, other.biography) && Objects.equals(email, other.email)
+				&& enabled == other.enabled && Objects.equals(firstName, other.firstName) && id == other.id
+				&& Objects.equals(imageUrl, other.imageUrl) && Objects.equals(inventory, other.inventory)
 				&& Objects.equals(lastName, other.lastName) && Objects.equals(password, other.password)
 				&& Objects.equals(role, other.role) && Objects.equals(trips, other.trips)
 				&& Objects.equals(username, other.username);
