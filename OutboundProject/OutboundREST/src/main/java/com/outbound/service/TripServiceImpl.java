@@ -14,74 +14,72 @@ import com.outbound.repository.UserRepository;
 @Service
 public class TripServiceImpl implements TripService {
 
-	
-		@Autowired
-		private TripRepository tripRepo;
+	@Autowired
+	private TripRepository tripRepo;
+
+	@Autowired
+	private UserRepository userRepo;
+
+	@Override
+	public List<Trip> indexAll(String username) {
+		return tripRepo.findByUser_Username(username);
+	}
+
+	@Override
+	public Trip findTripById(int tripId, String username) {
+		User user = userRepo.findByUsername(username);
 		
-		@Autowired
-		private UserRepository userRepo;
+		if (user != null) {
+			Optional<Trip> op = tripRepo.findById(tripId);
 
-		@Override
-		public List<Trip> indexAll(String username) {
-			return tripRepo.findByUser_Username(username);
-		}
-
-		@Override
-		public Trip findTripById(int tripId, String username) {
-			User user = userRepo.findByUsername(username);
-			if(user != null) {
-				Optional<Trip> op = tripRepo.findById(tripId);
+			if (op.isPresent()) {
+				Trip trip = op.get();
 				
-				if(op.isPresent()) {
-					Trip trip = op.get();
-					trip.setUser(user);
-					
+				if(trip.getUser().getUsername().equals(username)) {
 					return trip;
-					
-					
-				}
 				
+				}
 			}
-			
-			return null;
 		}
+		return null;
+	}
 
-		@Override
-		public Trip addTrip(Trip trip, String username) {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	@Override
+	public Trip addTrip(Trip trip, String username) {
+		User user = userRepo.findByUsername(username);
+		trip.setUser(user);
+		
+		return tripRepo.saveAndFlush(trip);
+	}
 
-		@Override
-		public Trip updateTrip(int tripId, Trip trip, String username) {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	@Override
+	public Trip updateTrip(int tripId, Trip trip, String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-		@Override
-		public Trip disableTrip(int tripId, Trip trip, String username) {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	@Override
+	public Trip disableTrip(int tripId, Trip trip, String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-		@Override
-		public List<Trip> indexByUsername(String username) {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	@Override
+	public List<Trip> indexByUsername(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-		@Override
-		public List<Trip> listBySuccess(boolean success, String username) {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	@Override
+	public List<Trip> listBySuccess(boolean success, String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-		@Override
-		public List<Trip> listTripByKeywordOrDescription(String keyword) {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	@Override
+	public List<Trip> listTripByKeywordOrDescription(String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	
-	
 }

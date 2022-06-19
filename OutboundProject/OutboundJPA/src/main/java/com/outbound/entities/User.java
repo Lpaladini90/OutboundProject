@@ -67,7 +67,7 @@ public class User {
 
 //	------------------------ RELATIONSHIP FIELDS -----------------
 
-	@JsonIgnore
+	@JsonIgnoreProperties({"user"})
 	@OneToMany(mappedBy = "user")
 	private List<Trip> trips;
 	

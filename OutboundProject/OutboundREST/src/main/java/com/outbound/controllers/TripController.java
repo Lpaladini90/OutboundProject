@@ -48,10 +48,12 @@ public class TripController {
 				return trip;
 			} else {
 				res.setStatus(404);
-				return trip;
+				return null;
 			}
 		
 	
 	}
+	
+	
 
 }
