@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.outbound.entities.GearList;
 import com.outbound.entities.User;
 
@@ -29,9 +30,11 @@ public class Inventory {
 	@JoinColumn(name = "user_id")
 	private User user;
 
+	@JsonIgnoreProperties({"inventory"})
 	@OneToMany(mappedBy = "inventory")
 	private List<Item> items;
-
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "inventory")
 	private List<GearList> lists;
 

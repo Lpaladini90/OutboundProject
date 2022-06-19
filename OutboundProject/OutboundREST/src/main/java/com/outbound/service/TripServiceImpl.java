@@ -1,6 +1,7 @@
 package com.outbound.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,21 @@ public class TripServiceImpl implements TripService {
 
 		@Override
 		public Trip findTripById(int tripId, String username) {
-			// TODO Auto-generated method stub
+			User user = userRepo.findByUsername(username);
+			if(user != null) {
+				Optional<Trip> op = tripRepo.findById(tripId);
+				
+				if(op.isPresent()) {
+					Trip trip = op.get();
+					trip.setUser(user);
+					
+					return trip;
+					
+					
+				}
+				
+			}
+			
 			return null;
 		}
 

@@ -38,7 +38,7 @@ public class Item {
 	@JoinColumn(name="inventory_id")
 	private Inventory inventory;
 	
-	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="item_category_id")
 	private ItemCategory category;

@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "item_category")
 public class ItemCategory {
@@ -24,6 +26,7 @@ public class ItemCategory {
 
 //	------------------------ RELATIONSHIP FIELDS -----------------
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "category")
 	private List<Item> items;
 

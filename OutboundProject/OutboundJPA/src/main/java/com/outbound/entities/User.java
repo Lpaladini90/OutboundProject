@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.outbound.entities.inventory.Inventory;
 
 
@@ -70,7 +71,7 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<Trip> trips;
 	
-	@JsonIgnore
+		
 	@OneToOne(mappedBy="user")
 	private Inventory inventory;
 
