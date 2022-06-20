@@ -20,7 +20,7 @@ public class Trip {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private int id;
 	
 	private String name;
 	
@@ -33,6 +33,8 @@ public class Trip {
 	private LocalDate endDate;
 	
 	private boolean success;
+	
+	private boolean enabled;
 
 	
 //	------------------------ RELATIONSHIP FIELDS -----------------
@@ -67,11 +69,11 @@ public class Trip {
 
 	
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -115,18 +117,26 @@ public class Trip {
 		this.success = success;
 	}
 	
+	
+	
+	
+	public boolean isEnabled() {
+		return enabled;
+	}
 
-	
-	
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	@Override
 	public String toString() {
-		return "HuntTrip [id=" + id + ", name=" + name + ", description=" + description + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", success=" + success + ", user=" + user + "]";
+		return "Trip [id=" + id + ", name=" + name + ", description=" + description + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", success=" + success + ", enabled=" + enabled + ", user=" + user + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, endDate, id, name, startDate, success, user);
+		return Objects.hash(description, enabled, endDate, id, name, startDate, success, user);
 	}
 
 	
@@ -139,8 +149,8 @@ public class Trip {
 		if (getClass() != obj.getClass())
 			return false;
 		Trip other = (Trip) obj;
-		return Objects.equals(description, other.description) && Objects.equals(endDate, other.endDate)
-				&& Objects.equals(id, other.id) && Objects.equals(name, other.name)
+		return Objects.equals(description, other.description) && enabled == other.enabled
+				&& Objects.equals(endDate, other.endDate) && id == other.id && Objects.equals(name, other.name)
 				&& Objects.equals(startDate, other.startDate) && success == other.success
 				&& Objects.equals(user, other.user);
 	}

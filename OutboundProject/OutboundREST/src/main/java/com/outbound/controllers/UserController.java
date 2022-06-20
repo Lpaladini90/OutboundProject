@@ -20,7 +20,7 @@ import com.outbound.service.UserService;
 
 @RestController
 @RequestMapping("api")
-@CrossOrigin({ "*", "http://localhost:8096" })
+@CrossOrigin({ "*", "http://localhost:4200" })
 public class UserController {
 
 	@Autowired

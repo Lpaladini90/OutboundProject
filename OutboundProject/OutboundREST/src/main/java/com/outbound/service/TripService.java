@@ -14,9 +14,9 @@ public interface TripService {
 	
 	public Trip updateTrip(int tripId, Trip trip, String username);
 	
-	public Trip disableTrip(int tripId, Trip trip, String username);
+//	public Trip disableTrip(int tripId, Trip trip, String username);
 
-	public List<Trip> indexByUsername(String username);
+	
 	
 	public List<Trip> listBySuccess(boolean success, String username); 
 	

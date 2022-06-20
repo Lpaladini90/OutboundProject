@@ -11,6 +11,6 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 
 	List<Trip> findByUser_Username(String username);
 	
-	
+	Trip findByUser_UsernameAndId(String username, int tripId);
 	
 }

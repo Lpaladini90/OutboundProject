@@ -67,13 +67,16 @@ public class User {
 
 //	------------------------ RELATIONSHIP FIELDS -----------------
 
-	@JsonIgnoreProperties({"user"})
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Trip> trips;
 	
-		
+	@JsonIgnore
 	@OneToOne(mappedBy="user")
 	private Inventory inventory;
+	
+	@OneToMany(mappedBy="user")
+	private List<GearList> lists;
 
 //	------------------------ CONSTRUCTORS -----------------
  
@@ -101,10 +104,19 @@ public class User {
 		this.inventory = inventory;
 	}
 	
+	
+
+
+
+	public List<GearList> getLists() {
+		return lists;
+	}
+
+	public void setLists(List<GearList> lists) {
+		this.lists = lists;
+	}
 
 //	------------------------ GETTERS/SETTERS -----------------
-
-
 	public int getId() {
 		return id;
 	}
