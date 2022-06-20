@@ -35,6 +35,9 @@ public class Trip {
 	private boolean success;
 	
 	private boolean enabled;
+	
+	@Column(name = "image_url")
+	private String imageUrl;
 
 	
 //	------------------------ RELATIONSHIP FIELDS -----------------
@@ -120,6 +123,16 @@ public class Trip {
 	
 	
 	
+	
+	
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -131,7 +144,8 @@ public class Trip {
 	@Override
 	public String toString() {
 		return "Trip [id=" + id + ", name=" + name + ", description=" + description + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", success=" + success + ", enabled=" + enabled + ", user=" + user + "]";
+				+ ", endDate=" + endDate + ", success=" + success + ", enabled=" + enabled + ", imageUrl=" + imageUrl
+				+ ", user=" + user + "]";
 	}
 
 	@Override

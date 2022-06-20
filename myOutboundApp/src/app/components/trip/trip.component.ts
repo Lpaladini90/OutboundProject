@@ -10,13 +10,19 @@ import { Trip } from 'src/app/models/trip';
   styleUrls: ['./trip.component.css'],
 })
 export class TripComponent implements OnInit {
+
+
   selected: Trip | null = null;
+
   newTrip: Trip = new Trip();
   editTrip: Trip | null = null;
   trips: Trip[] = [];
 
   currentUserId: number | null = 0;
 
+  showAllTrips: boolean = true;
+  displayTripModal = false;
+  displayEditModal = false;
 
 
   constructor(
@@ -24,6 +30,7 @@ export class TripComponent implements OnInit {
     private authServ: AuthService,
     private route: ActivatedRoute,
     private router: Router
+
   ) {}
 
   ngOnInit(): void {
@@ -37,9 +44,9 @@ export class TripComponent implements OnInit {
       // }
     }else {
     }
-  this.reload();
 
   }
+  this.reload();
 
 }
 
@@ -47,6 +54,7 @@ reload(){
   this.tripServ.indexUserTrips().subscribe({
     next: (data)=> {
       this.trips = data;
+      console.log(this.trips);
 
     },
     error: (err)=>{
@@ -56,9 +64,46 @@ reload(){
   });
 }
 
-displayTrips(){[
+displaySingleTrip(trip: Trip){
+this.selected = trip;
+console.log(this.selected);
 
-]}
+}
+
+addTrip(newTrip: Trip){
+this.tripServ.addUserTrip(newTrip).subscribe({
+next: (data) =>{
+this.reload();
+this.newTrip = new Trip();
+
+},
+error: (err)=>{
+  console.log(err);
+
+}
+
+})
+}
+
+updateTrip(updatedTrip: Trip, id: number){
+  this.tripServ.updateUserTrip(updatedTrip, id).subscribe({
+
+    next: (data) =>{
+      this.reload();
+      this.newTrip = updatedTrip;
+      console.log(this.editTrip);
+      if(this.selected){
+        this.selected = Object.assign({}, updatedTrip)
+      }
+
+    }
+
+
+  })
+}
+
+
+
 
 
 }

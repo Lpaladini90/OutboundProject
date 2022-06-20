@@ -57,7 +57,7 @@ public class TripController {
 	}
 	
 	
-	@PostMapping("users/trips")
+	@PostMapping("trips")
 	public Trip addTrip(@RequestBody Trip trip,
 			HttpServletResponse res,
 			Principal principal,
@@ -82,7 +82,7 @@ public class TripController {
 	}
 	
 	
-	@PutMapping("users/trips/{id}")
+	@PutMapping("trips/{id}")
 	public Trip updateTrip(@RequestBody Trip trip,
 			@PathVariable("id") int tripId,
 			HttpServletResponse res,

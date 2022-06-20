@@ -41,4 +41,33 @@ export class TripService {
     )
   }
 
+
+public addUserTrip(newTrip: Trip){
+  return this.http.post<Trip>(this.url, newTrip, this.getHttpOptions()).pipe(
+    catchError((err:any)=>{
+      console.log(err);
+      return throwError(()=>{
+        new Error("index for user trips has an error");
+      })
+
+    }),
+  )
+
+}
+
+
+public updateUserTrip(updateTrip: Trip, id: number){
+  return this.http.put<Trip>(this.url + "/" + id, updateTrip, this.getHttpOptions()).pipe(
+
+    catchError((err:any)=>{
+      console.log(err);
+      return throwError(()=>{
+        new Error("index for user trips has an error");
+      })
+
+    }),
+  )
+}
+
+
 }

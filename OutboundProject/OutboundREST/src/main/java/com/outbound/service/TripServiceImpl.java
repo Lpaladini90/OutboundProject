@@ -70,6 +70,8 @@ public class TripServiceImpl implements TripService {
 				managedTrip.setStartDate(trip.getStartDate());
 				managedTrip.setUser(trip.getUser());
 				managedTrip.setEnabled(trip.isEnabled());
+				managedTrip.setSuccess(trip.isSuccess());
+				managedTrip.setImageUrl(trip.getImageUrl());
 
 				tripRepo.saveAndFlush(managedTrip);
 

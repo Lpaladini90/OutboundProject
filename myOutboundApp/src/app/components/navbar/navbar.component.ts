@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit {
     private userSvc: UserService,) { }
 
   ngOnInit(): void {
-    this.loadUserData();
+    // this.loadUserData();
   }
 
 
@@ -39,7 +39,7 @@ export class NavbarComponent implements OnInit {
   getUser() {
     const username = this.auth.getLoggedInUser();
     if(username !== null) {
-     
+
     this.auth.getLoggedInUser().subscribe ({
         next: (user: User) => {
           this.currentUser = user;
@@ -53,19 +53,18 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  loadUserData() {
-      this.userSvc.show(this.currentUser.id).subscribe(
-        (data) => {
-          this.getUser();
+  // loadUserData() {
+  //     this.userSvc.show(this.currentUser.id).subscribe(
+  //       (data) => {
+  //         this.getUser();
 
+  //       },
+  //       (err) => {
+  //         console.log(err);
 
-        },
-        (err) => {
-          console.log(err);
-
-        }
-      );
-    }
+  //       }
+  //     );
+  //   }
 
 
 }
