@@ -1,5 +1,6 @@
 package com.outbound.entities.inventory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,50 +18,45 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.outbound.entities.GearList;
 import com.outbound.entities.User;
 
-
 @Entity
 public class Item {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	
+
 	private String brand;
-	
-	@Column(name="model_name")
+
+	@Column(name = "model_name")
 	private String modelName;
-	
+
 	private String description;
-	
+
 	private double weight;
-	
+
 	private boolean active;
 //	------------------------ RELATIONSHIP FIELDS -----------------
 
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="item_category_id")
+	@JoinColumn(name = "item_category_id")
 	private ItemCategory category;
-	
-	
+
+	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name = "user_id")
 	private User user;
 
 	@JsonIgnore
-	@ManyToMany(mappedBy="items")
+	@ManyToMany(mappedBy = "items")
 	private List<GearList> gearLists;
-	
-	
-	
+
 //	------------- CONSTRUCTORS -----------------
 	public Item() {
 		super();
 	}
-	
+
 //	------------- RELATIONAL MAPPING -----------------
-	
 
 	public ItemCategory getCategory() {
 		return category;
@@ -69,33 +65,42 @@ public class Item {
 	public void setCategory(ItemCategory category) {
 		this.category = category;
 	}
-	
-	
+
 	public User getUser() {
 		return user;
 	}
-	
+
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	
-	
+
 	public List<GearList> getGearLists() {
 		return gearLists;
 	}
-	
+
 	public void setGearLists(List<GearList> gearLists) {
 		this.gearLists = gearLists;
 	}
-	
 
-	
+	public void addGearList(GearList list) {
+		if (gearLists == null) {
+			gearLists = new ArrayList<>();
+			if (!gearLists.contains(list)) {
+				gearLists.add(list);
+				list.addItems(this);
+			}
+		}
+	}
+
+	public void removeGearList(GearList list) {
+
+		if(gearLists != null && gearLists.contains(list)) {
+			gearLists.remove(list);
+			list.removeItems(this);
+		}
+	}
+
 //	------------- GETTERS / SETTERS -----------------
-
-
-
-
 
 	public int getId() {
 		return id;
@@ -137,19 +142,15 @@ public class Item {
 		this.weight = weight;
 	}
 
-	
 	public boolean isActive() {
 		return active;
 	}
-	
+
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	
 
 //	------------- TO STRING -----------------
-
-	
 
 	@Override
 	public String toString() {
@@ -164,7 +165,6 @@ public class Item {
 		return Objects.hash(active, brand, category, description, id, modelName, weight);
 	}
 
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -179,8 +179,5 @@ public class Item {
 				&& Objects.equals(modelName, other.modelName)
 				&& Double.doubleToLongBits(weight) == Double.doubleToLongBits(other.weight);
 	}
-	
-	
-	
-	
+
 }

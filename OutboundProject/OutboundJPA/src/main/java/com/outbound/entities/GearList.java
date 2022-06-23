@@ -1,5 +1,6 @@
 package com.outbound.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.outbound.entities.inventory.Item;
 
 @Entity
@@ -24,32 +26,26 @@ public class GearList {
 	private int id;
 
 	private String title;
-	
+
 	private String description;
 
 	private boolean active;
 
 //	------------------------ RELATIONSHIP FIELDS -----------------
 
-	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	
 	@ManyToMany
-	@JoinTable(name="gear_list_has_item",
-	joinColumns = @JoinColumn(name="gear_list_id"),
-	inverseJoinColumns = @JoinColumn(name="item_id"))
+	@JoinTable(name = "gear_list_has_item", joinColumns = @JoinColumn(name = "gear_list_id"), inverseJoinColumns = @JoinColumn(name = "item_id"))
 	private List<Item> items;
-	
-	
-	
 
 //	------------- CONSTRUCTORS -----------------
 
 	public GearList() {
-	
+
 	}
 
 //	------------------------ RELATIONAL MAPPING -----------------
@@ -61,20 +57,43 @@ public class GearList {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	
+
 	public List<Item> getItems() {
 		return items;
 	}
-	
+
 	public void setItems(List<Item> items) {
 		this.items = items;
 	}
-	
 
+	public void addItems(Item item) {
+		if (items == null) {
+			items = new ArrayList<>();
+			if (!items.contains(item)) {
+				items.add(item);
+				item.addGearList(this);
+			}
+
+		}
+		
+		else {
+			if(!items.contains(item)) {
+				items.add(item);
+				item.addGearList(this);
+			}
+			
+		}
+
+	}
+
+	public void removeItems(Item item) {
+		if(items != null && items.contains(item)) {
+			items.remove(item);
+			item.removeGearList(this);
+		}
+	}
 
 //	------------- GETTERS / SETTERS -----------------
-
 
 	public int getId() {
 		return id;
@@ -99,19 +118,16 @@ public class GearList {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	
+
 	public String getTitle() {
 		return title;
 	}
-	
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
-	
 
 //	------------- TO STRING -----------------
-
 
 	@Override
 	public String toString() {

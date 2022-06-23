@@ -9,7 +9,9 @@ import com.outbound.entities.GearList;
 
 public interface GearListRepository extends JpaRepository<GearList, Integer> {
 
-	GearList findByTitleLikeOrDescriptionLike(@Param("k") String keyword1, @Param("k") String keyword2);
+	GearList findByUser_UsernameAndId(String username, int gearListId);
+	
+	List<GearList> findByTitleLikeOrDescriptionLike(@Param("k") String keyword1, @Param("k") String keyword2);
 	
 	List<GearList> findByUser_Username(String username);
 	

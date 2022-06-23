@@ -44,7 +44,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `gear_list` ;
 
 CREATE TABLE IF NOT EXISTS `gear_list` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `title` TEXT NULL,
   `description` TEXT NULL,
   `active` TINYINT NULL,
@@ -331,7 +331,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `item_category` ;
 
 CREATE TABLE IF NOT EXISTS `item_category` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `type_name` VARCHAR(200) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -343,7 +343,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `weapon_type` ;
 
 CREATE TABLE IF NOT EXISTS `weapon_type` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(200) NULL,
   `description` VARCHAR(2000) NULL,
   `item_category_id` INT NOT NULL,
@@ -363,7 +363,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `clothing_layer` ;
 
 CREATE TABLE IF NOT EXISTS `clothing_layer` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `type` VARCHAR(45) NULL,
   `description` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
@@ -389,7 +389,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `clothing_category` ;
 
 CREATE TABLE IF NOT EXISTS `clothing_category` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `type` VARCHAR(45) NULL,
   `item_category_id` INT NOT NULL,
   PRIMARY KEY (`id`),
@@ -408,7 +408,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `item` ;
 
 CREATE TABLE IF NOT EXISTS `item` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `brand` VARCHAR(200) NULL,
   `model_name` VARCHAR(200) NULL,
   `description` VARCHAR(2000) NULL,
