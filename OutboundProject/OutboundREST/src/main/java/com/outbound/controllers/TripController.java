@@ -93,7 +93,7 @@ public class TripController {
 		
 		try {
 			if(updatedTrip !=null) {
-				res.setStatus(205);
+				res.setStatus(201);
 				return updatedTrip;
 			}
 		} catch (Exception e) {

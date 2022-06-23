@@ -47,7 +47,7 @@ public class Trip {
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	
+	 
 //	------------------------ CONSTRUCTORS -----------------
 
 	
@@ -150,7 +150,7 @@ public class Trip {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, enabled, endDate, id, name, startDate, success, user);
+		return Objects.hash(description, enabled, endDate, id, imageUrl, name, startDate, success, user);
 	}
 
 	
@@ -164,9 +164,9 @@ public class Trip {
 			return false;
 		Trip other = (Trip) obj;
 		return Objects.equals(description, other.description) && enabled == other.enabled
-				&& Objects.equals(endDate, other.endDate) && id == other.id && Objects.equals(name, other.name)
-				&& Objects.equals(startDate, other.startDate) && success == other.success
-				&& Objects.equals(user, other.user);
+				&& Objects.equals(endDate, other.endDate) && id == other.id && Objects.equals(imageUrl, other.imageUrl)
+				&& Objects.equals(name, other.name) && Objects.equals(startDate, other.startDate)
+				&& success == other.success && Objects.equals(user, other.user);
 	}
 
 	

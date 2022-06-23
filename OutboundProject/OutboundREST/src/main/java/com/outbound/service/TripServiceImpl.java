@@ -19,14 +19,17 @@ public class TripServiceImpl implements TripService {
 	@Autowired
 	private TripRepository tripRepo;
 
+	
 	@Autowired
 	private UserRepository userRepo;
 
+	
 	@Override
 	public List<Trip> indexAll(String username) {
 		return tripRepo.findByUser_Username(username);
 	}
 
+	
 	@Override
 	public Trip findTripById(int tripId, String username) {
 		User user = userRepo.findByUsername(username);
@@ -63,16 +66,14 @@ public class TripServiceImpl implements TripService {
 			Trip managedTrip = tripRepo.findByUser_UsernameAndId(username, tripId);
 
 			if (managedTrip != null) {
-
 				managedTrip.setName(trip.getName());
 				managedTrip.setDescription(trip.getDescription());
 				managedTrip.setEndDate(trip.getEndDate());
 				managedTrip.setStartDate(trip.getStartDate());
-				managedTrip.setUser(trip.getUser());
 				managedTrip.setEnabled(trip.isEnabled());
 				managedTrip.setSuccess(trip.isSuccess());
 				managedTrip.setImageUrl(trip.getImageUrl());
-
+				
 				tripRepo.saveAndFlush(managedTrip);
 
 			}

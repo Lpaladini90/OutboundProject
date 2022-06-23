@@ -1,5 +1,6 @@
 package com.outbound.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -7,12 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.outbound.entities.inventory.Inventory;
+import com.outbound.entities.inventory.Item;
 
 @Entity
 @Table(name = "gear_list")
@@ -22,22 +23,28 @@ public class GearList {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	private String title;
+	
 	private String description;
 
 	private boolean active;
 
 //	------------------------ RELATIONSHIP FIELDS -----------------
 
-	@JsonIgnore
+	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 
 	
-	@JsonIgnoreProperties({"lists"})
-	@ManyToOne
-	@JoinColumn(name = "inventory_id")
-	private Inventory inventory;
+	@ManyToMany
+	@JoinTable(name="gear_list_has_item",
+	joinColumns = @JoinColumn(name="gear_list_id"),
+	inverseJoinColumns = @JoinColumn(name="item_id"))
+	private List<Item> items;
+	
+	
+	
 
 //	------------- CONSTRUCTORS -----------------
 
@@ -54,19 +61,20 @@ public class GearList {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
 	
 	
-
-	public Inventory getInventory() {
-		return inventory;
-	}
-
-	public void setInventory(Inventory inventory) {
-		this.inventory = inventory;
+	public List<Item> getItems() {
+		return items;
 	}
 	
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+	
+
+
 //	------------- GETTERS / SETTERS -----------------
+
 
 	public int getId() {
 		return id;
@@ -91,20 +99,31 @@ public class GearList {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+	
+	public String getTitle() {
+		return title;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	
 
 //	------------- TO STRING -----------------
 
+
 	@Override
 	public String toString() {
-		return "GearList [id=" + id + ", description=" + description + ", user=" + user + ", inventory=" + inventory
-				+ "]";
+		return "GearList [id=" + id + ", title=" + title + ", description=" + description + ", active=" + active
+				+ ", user=" + user + "]";
 	}
 
 //	------------- HASHCODE & EQUALS -----------------
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(active, description, id, user);
+		return Objects.hash(active, description, id, title, user);
 	}
 
 	@Override
@@ -116,8 +135,8 @@ public class GearList {
 		if (getClass() != obj.getClass())
 			return false;
 		GearList other = (GearList) obj;
-		return active == other.active && Objects.equals(description, other.description) && Objects.equals(id, other.id)
-				&& Objects.equals(user, other.user);
+		return active == other.active && Objects.equals(description, other.description) && id == other.id
+				&& Objects.equals(title, other.title) && Objects.equals(user, other.user);
 	}
 
 }
