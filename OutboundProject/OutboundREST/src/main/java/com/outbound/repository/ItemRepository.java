@@ -14,7 +14,8 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	
 	List<Item> findByBrandLikeOrModelNameLike(@Param("k") String keyword1, @Param("k") String keyword2);
 	
+	List<Item> findByCategory_typeName(String typeName);
 	
-	
+	List<Item> findByCategory_Id(int id);
 	
 }

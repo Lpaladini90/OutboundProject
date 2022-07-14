@@ -16,10 +16,10 @@ public interface ItemService {
 	
 	Item disableItem(String username, Item item, int itemId);
 	
-	List<Item> findByCategory(String username, String keyword);
+	List<Item> findByCategoryName(String username, String typeName);
 	
 	List<Item> findItemsByKeyword(String keyword, String username);
 	
-	
+	List<Item> findByCatId(String username, int catId);
 	
 }

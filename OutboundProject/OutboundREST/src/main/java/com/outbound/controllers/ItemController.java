@@ -52,27 +52,37 @@ public class ItemController {
 
 		return itemServ.updateItem(principal.getName(), item, itemId);
 	}
-	
+
 	@PutMapping("items/disable/{itemId}")
 	public Item disableItem(@RequestBody Item item, @PathVariable("itemId") int itemId, Principal principal,
 			HttpServletResponse res) {
-		
-				Item disableItem = itemServ.disableItem(principal.getName(), item, itemId);
-		
+
+		Item disableItem = itemServ.disableItem(principal.getName(), item, itemId);
+
 		return disableItem;
 	}
-	
-	
+
 	@GetMapping("items/search/{keyword}")
-	public List<Item> findByKeyword(@PathVariable("keyword")String keyword,
+	public List<Item> findByKeyword(@PathVariable("keyword") String keyword, Principal principal,
+			HttpServletResponse res) {
+
+		return itemServ.findItemsByKeyword(keyword, principal.getName());
+
+	}
+
+	@GetMapping("items/category/{catId}")
+	public List<Item> searchByCategory(@PathVariable("catId") int catId, Principal principal,
+			HttpServletResponse res) {
+		return itemServ.findByCatId(principal.getName(), catId);
+				 
+
+	}
+	
+	@GetMapping("items/categorysearch/{typeName}")
+	public List<Item> findByCatName(@PathVariable("typeName")String typeName,
 			Principal principal, 
 			HttpServletResponse res){
-		
-		
-		
-		
-		return itemServ.findItemsByKeyword(keyword, principal.getName());
-		
+		return itemServ.findByCategoryName(principal.getName(), typeName);
 	}
 
 }

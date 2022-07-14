@@ -111,33 +111,59 @@ public class ItemServiceImpl implements ItemService {
 		return null;
 
 	}
-
+	
 	@Override
-	public List<Item> findByCategory(String username, String keyword) {
-		
-		
+	public List<Item> findByCatId(String username, int catId) {
 		User user = userRepo.findByUsername(username);
-
+		
+		if(user != null) {
+			
+			List<Item> items = itemRepo.findByCategory_Id(catId);
+			return items;
+		}
+		
+		
 		return null;
 	}
+	
+	
+	
 
 	@Override
-	public List<Item> findItemsByKeyword(String keyword, String username) {
+	public List<Item> findByCategoryName(String username, String typeName) {
+		System.out.println("Category Search " + typeName);
 		User user = userRepo.findByUsername(username);
-		String search = "%" + keyword + "%";
+//		String search = "%" + typeName + "%";
 		if(user != null) {
-		
-			
 			List<Item> items = new ArrayList<>();
+			System.out.println("list should be empty " + items);
 			
-			items = itemRepo.findByBrandLikeOrModelNameLike(search, search);
-			
-			return items;
+			items.addAll(itemRepo.findByCategory_typeName(typeName));
+			System.out.println("After " + items);
+			   return items;
 			
 		}
 		
 		
-		
+		return null;
+	}
+
+	
+	
+	@Override
+	public List<Item> findItemsByKeyword(String keyword, String username) {
+		User user = userRepo.findByUsername(username);
+		String search = "%" + keyword + "%";
+		if (user != null) {
+
+			List<Item> items = new ArrayList<>();
+
+			items = itemRepo.findByBrandLikeOrModelNameLike(search, search);
+
+			return items;
+
+		}
+
 		return null;
 	}
 }
