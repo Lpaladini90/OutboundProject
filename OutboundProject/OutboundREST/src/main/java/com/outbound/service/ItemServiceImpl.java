@@ -1,5 +1,6 @@
 package com.outbound.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -86,16 +87,24 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public Item disableItem(String username, int itemId) {
+	public Item disableItem(String username, Item item, int itemId) {
 		User user = userRepo.findByUsername(username);
+		if (user != null) {
 
-		Item managed = itemRepo.findByUser_UsernameAndId(username, itemId);
-		if (managed != null) {
+			Optional<Item> itemOp = itemRepo.findById(itemId);
 
-			managed.setUser(user);
-			managed.setActive(false);
-			itemRepo.saveAndFlush(managed);
-			return managed;
+			if (itemOp.isPresent()) {
+				Item managed = itemOp.get();
+
+				if (managed != null && managed.getUser().getUsername().equals(username)) {
+
+					managed.setActive(false);
+					itemRepo.saveAndFlush(managed);
+					return managed;
+
+				}
+
+			}
 
 		}
 
@@ -105,6 +114,8 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public List<Item> findByCategory(String username, String keyword) {
+		
+		
 		User user = userRepo.findByUsername(username);
 
 		return null;
@@ -112,7 +123,21 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public List<Item> findItemsByKeyword(String keyword, String username) {
-		// TODO Auto-generated method stub
+		User user = userRepo.findByUsername(username);
+		String search = "%" + keyword + "%";
+		if(user != null) {
+		
+			
+			List<Item> items = new ArrayList<>();
+			
+			items = itemRepo.findByBrandLikeOrModelNameLike(search, search);
+			
+			return items;
+			
+		}
+		
+		
+		
 		return null;
 	}
 }

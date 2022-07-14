@@ -52,5 +52,27 @@ public class ItemController {
 
 		return itemServ.updateItem(principal.getName(), item, itemId);
 	}
+	
+	@PutMapping("items/disable/{itemId}")
+	public Item disableItem(@RequestBody Item item, @PathVariable("itemId") int itemId, Principal principal,
+			HttpServletResponse res) {
+		
+				Item disableItem = itemServ.disableItem(principal.getName(), item, itemId);
+		
+		return disableItem;
+	}
+	
+	
+	@GetMapping("items/search/{keyword}")
+	public List<Item> findByKeyword(@PathVariable("keyword")String keyword,
+			Principal principal, 
+			HttpServletResponse res){
+		
+		
+		
+		
+		return itemServ.findItemsByKeyword(keyword, principal.getName());
+		
+	}
 
 }

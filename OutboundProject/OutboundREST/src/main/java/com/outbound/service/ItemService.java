@@ -14,7 +14,7 @@ public interface ItemService {
 	
 	Item updateItem(String username, Item item, int itemId);
 	
-	Item disableItem(String username, int itemId);
+	Item disableItem(String username, Item item, int itemId);
 	
 	List<Item> findByCategory(String username, String keyword);
 	
