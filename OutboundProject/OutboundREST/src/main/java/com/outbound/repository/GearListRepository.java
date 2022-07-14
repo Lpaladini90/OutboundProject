@@ -16,4 +16,5 @@ public interface GearListRepository extends JpaRepository<GearList, Integer> {
 	List<GearList> findByUser_Username(String username);
 	
 	
+	
 }

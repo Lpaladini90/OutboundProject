@@ -14,10 +14,11 @@ public interface ItemService {
 	
 	Item updateItem(String username, Item item, int itemId);
 	
-	boolean deleteItem(String username, int itemId);
+	Item disableItem(String username, int itemId);
 	
-	List<Item> findByCategory(String username, int itemId);
+	List<Item> findByCategory(String username, String keyword);
 	
+	List<Item> findItemsByKeyword(String keyword, String username);
 	
 	
 	

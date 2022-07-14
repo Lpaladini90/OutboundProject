@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.outbound.entities.GearList;
 import com.outbound.entities.User;
 
@@ -37,7 +38,6 @@ public class Item {
 	private boolean active;
 //	------------------------ RELATIONSHIP FIELDS -----------------
 
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "item_category_id")
 	private ItemCategory category;

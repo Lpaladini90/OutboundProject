@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "item_category")
@@ -25,12 +26,11 @@ public class ItemCategory {
 	private String typeName;
 
 //	------------------------ RELATIONSHIP FIELDS -----------------
-
 	@JsonIgnore
 	@OneToMany(mappedBy = "category")
 	private List<Item> items;
 
-	
+	@JsonIgnore
 	@OneToMany(mappedBy="category")
 	private List<WeaponType> weaponTypes;
 	
