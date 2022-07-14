@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,36 +23,34 @@ import com.outbound.service.ItemService;
 @CrossOrigin({ "*", "http://localhost:8096" })
 public class ItemController {
 
-	
 	@Autowired
 	private ItemService itemServ;
-	
-	
+
 	@GetMapping("items")
-	public List<Item> indexAllItems(Principal principal, HttpServletResponse res){
-		
-		
+	public List<Item> indexAllItems(Principal principal, HttpServletResponse res) {
+
 		return itemServ.indexAllItems(principal.getName());
-		
+
 	}
-	
+
 	@GetMapping("items/{itemId}")
-	public Item findById(@PathVariable("itemId")int itemId,
-			Principal principal,
-			HttpServletResponse res) {
-		
+	public Item findById(@PathVariable("itemId") int itemId, Principal principal, HttpServletResponse res) {
+
 		return itemServ.findUserItemById(principal.getName(), itemId);
 	}
-	
+
 	@PostMapping("items")
-	public Item createItem(@RequestBody Item item  ,Principal principal,
-			HttpServletResponse res) {
-		
-		
+	public Item createItem(@RequestBody Item item, Principal principal, HttpServletResponse res) {
+
 		return itemServ.addItem(principal.getName(), item);
-		
+
 	}
-	
-	
-	
+
+	@PutMapping("items/{itemId}")
+	public Item updateItem(@RequestBody Item item, @PathVariable("itemId") int itemId, Principal principal,
+			HttpServletResponse res) {
+
+		return itemServ.updateItem(principal.getName(), item, itemId);
+	}
+
 }
