@@ -155,14 +155,15 @@ public class Item {
 	@Override
 	public String toString() {
 		return "Item [id=" + id + ", brand=" + brand + ", modelName=" + modelName + ", description=" + description
-				+ ", weight=" + weight + ", active=" + active + ", category=" + category + "]";
+				+ ", weight=" + weight + ", active=" + active + ", category=" + category + ", user=" + user
+				+ ", gearLists=" + gearLists + "]";
 	}
 
 //	------------- HASHCODE & EQUALS -----------------
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(active, brand, category, description, id, modelName, weight);
+		return Objects.hash(active, brand, category, description, gearLists, id, modelName, user, weight);
 	}
 
 	@Override
@@ -175,8 +176,8 @@ public class Item {
 			return false;
 		Item other = (Item) obj;
 		return active == other.active && Objects.equals(brand, other.brand) && Objects.equals(category, other.category)
-				&& Objects.equals(description, other.description) && id == other.id
-				&& Objects.equals(modelName, other.modelName)
+				&& Objects.equals(description, other.description) && Objects.equals(gearLists, other.gearLists)
+				&& id == other.id && Objects.equals(modelName, other.modelName) && Objects.equals(user, other.user)
 				&& Double.doubleToLongBits(weight) == Double.doubleToLongBits(other.weight);
 	}
 

@@ -1,5 +1,6 @@
 package com.outbound.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.outbound.entities.GearList;
@@ -17,7 +18,8 @@ public interface GearListService {
 	
 	GearList disableList(String username, GearList list, int listId);
 	
-	GearList addItemToGearList(String username, int gearListId, int itemId);
+	GearList addItemsToGearList(String username, int gearListId, List<Item> items);
+	
 	
 	List<GearList> findGearListsByKeyword(String keyword, String username);
 	
