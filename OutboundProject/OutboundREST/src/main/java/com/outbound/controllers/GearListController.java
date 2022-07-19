@@ -1,6 +1,7 @@
 package com.outbound.controllers;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -66,14 +67,16 @@ public class GearListController {
 		return null;
 	}
 
-	@PutMapping("gearlists/{gearListId}/item/{itemId}")
-	public GearList addItemToGearList(@PathVariable("gearListId") int gearListId,
-			@PathVariable("itemId") int itemId,
+	@PutMapping("gearlists/{gearListId}/additems")
+	public GearList addItemsToGearList(@PathVariable("gearListId") int gearListId,
+			@RequestBody List<Item> items,
 			HttpServletResponse res, 
 			Principal principal) {
 
-		GearList gearList = listServ.addItemToGearList(principal.getName(), 
-				gearListId, itemId);
+		System.out.println(gearListId);
+		
+		GearList gearList = listServ.addItemsToGearList(principal.getName(), gearListId, items);
+			
 
 		try {
 			if (gearList != null) {

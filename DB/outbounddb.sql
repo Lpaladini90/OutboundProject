@@ -414,7 +414,6 @@ CREATE TABLE IF NOT EXISTS `item` (
   `description` VARCHAR(2000) NULL,
   `weight` DOUBLE NULL,
   `active` TINYINT NULL,
-  `inventory_id` INT NOT NULL,
   `item_category_id` INT NOT NULL,
   `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
@@ -867,18 +866,18 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `inventory_id`, `item_category_id`, `user_id`) VALUES (1, 'Kifaru', 'Fulcrum', 'Functional, versatile and durable are just a few words that describe the Fulcrum', 3.4, 1, 1, 1, 1);
-INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `inventory_id`, `item_category_id`, `user_id`) VALUES (2, 'Adventure Med Kits', 'Ultralight/ Watertight .9 Med Kit', 'The kit features two layers of rugged waterproofing protection, keeping the contents safe and dry even in the most extreme elements. Ideal for ultralight hiking, this kit lets you keep weight to a minimum, as it weighs less than 8 oz., while still being prepared. ', .75, 1, 1, 3, 1);
-INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `inventory_id`, `item_category_id`, `user_id`) VALUES (3, 'Vortex Binoculars', 'Diamondback HD 12x50', 'The Diamondback® HD smashes the scale of price vs performance, delivering a rock-solid optic that optically punches high above its class.', 1.80, 1, 1, 5, 1);
-INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `inventory_id`, `item_category_id`, `user_id`) VALUES (4, 'Mountain House', 'Beef Strogi ', 'freeze dried food- use with jet boil.', .268, 1, 1, 7, 1);
-INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `inventory_id`, `item_category_id`, `user_id`) VALUES (5, 'Jetboil', 'MicroMo', 'Cooking System', .75, 1, 1, 2, 1);
-INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `inventory_id`, `item_category_id`, `user_id`) VALUES (6, 'MSR', 'IsoPro', 'jet boil fuel', .25, 1, 1, 2, 1);
-INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `inventory_id`, `item_category_id`, `user_id`) VALUES (7, 'Ascent', '900', 'light weight down sleeping bag', 3.55, 1, 1, 6, 1);
-INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `inventory_id`, `item_category_id`, `user_id`) VALUES (8, 'Black Diamond', 'Alpine Carbon Cork', 'Trekking Poles - Pair', 1.06, 1, 1, 4, 1);
-INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `inventory_id`, `item_category_id`, `user_id`) VALUES (9, 'SPOT', 'Gen 3', 'The latest generation of award-winning SPOT devices from Globalstar, the SPOT Gen3 offers a critical, life-saving line of communication when traveling beyond cellular coverage zones. ', .25, 1, 1, 4, 1);
-INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `inventory_id`, `item_category_id`, `user_id`) VALUES (10, 'Counter Assault', 'Bear Spray', 'Bear protection with holster', .5, 1, 1, 9, 1);
-INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `inventory_id`, `item_category_id`, `user_id`) VALUES (11, 'Matthews', 'Vertix', 'Compound Bow', 4.75, 1, 1, 9, 1);
-INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `inventory_id`, `item_category_id`, `user_id`) VALUES (12, 'First Lite', 'Corrugate Pants', 'brown general hunt pants', 1, 1, 1, 8, 1);
+INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `item_category_id`, `user_id`) VALUES (1, 'Kifaru', 'Fulcrum', 'Functional, versatile and durable are just a few words that describe the Fulcrum', 3.4, 1, 1, 1);
+INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `item_category_id`, `user_id`) VALUES (2, 'Adventure Med Kits', 'Ultralight/ Watertight .9 Med Kit', 'The kit features two layers of rugged waterproofing protection, keeping the contents safe and dry even in the most extreme elements. Ideal for ultralight hiking, this kit lets you keep weight to a minimum, as it weighs less than 8 oz., while still being prepared. ', .75, 1, 3, 1);
+INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `item_category_id`, `user_id`) VALUES (3, 'Vortex Binoculars', 'Diamondback HD 12x50', 'The Diamondback® HD smashes the scale of price vs performance, delivering a rock-solid optic that optically punches high above its class.', 1.80, 1, 5, 1);
+INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `item_category_id`, `user_id`) VALUES (4, 'Mountain House', 'Beef Strogi ', 'freeze dried food- use with jet boil.', .268, 1, 7, 1);
+INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `item_category_id`, `user_id`) VALUES (5, 'Jetboil', 'MicroMo', 'Cooking System', .75, 1, 2, 1);
+INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `item_category_id`, `user_id`) VALUES (6, 'MSR', 'IsoPro', 'jet boil fuel', .25, 1, 2, 1);
+INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `item_category_id`, `user_id`) VALUES (7, 'Ascent', '900', 'light weight down sleeping bag', 3.55, 1, 6, 1);
+INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `item_category_id`, `user_id`) VALUES (8, 'Black Diamond', 'Alpine Carbon Cork', 'Trekking Poles - Pair', 1.06, 1, 4, 1);
+INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `item_category_id`, `user_id`) VALUES (9, 'SPOT', 'Gen 3', 'The latest generation of award-winning SPOT devices from Globalstar, the SPOT Gen3 offers a critical, life-saving line of communication when traveling beyond cellular coverage zones. ', .25, 1, 4, 1);
+INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `item_category_id`, `user_id`) VALUES (10, 'Counter Assault', 'Bear Spray', 'Bear protection with holster', .5, 1, 9, 1);
+INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `item_category_id`, `user_id`) VALUES (11, 'Matthews', 'Vertix', 'Compound Bow', 4.75, 1, 9, 1);
+INSERT INTO `item` (`id`, `brand`, `model_name`, `description`, `weight`, `active`, `item_category_id`, `user_id`) VALUES (12, 'First Lite', 'Corrugate Pants', 'brown general hunt pants', 1, 1, 8, 1);
 
 COMMIT;
 

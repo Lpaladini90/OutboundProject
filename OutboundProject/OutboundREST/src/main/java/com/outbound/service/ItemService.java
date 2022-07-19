@@ -14,12 +14,12 @@ public interface ItemService {
 	
 	Item updateItem(String username, Item item, int itemId);
 	
-	Item disableItem(String username, int itemId);
+	Item disableItem(String username, Item item, int itemId);
 	
-	List<Item> findByCategory(String username, String keyword);
+	List<Item> findByCategoryName(String username, String typeName);
 	
 	List<Item> findItemsByKeyword(String keyword, String username);
 	
-	
+	List<Item> findByCatId(String username, int catId);
 	
 }

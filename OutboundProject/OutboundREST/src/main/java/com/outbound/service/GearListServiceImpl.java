@@ -11,7 +11,6 @@ import com.outbound.entities.GearList;
 import com.outbound.entities.User;
 import com.outbound.entities.inventory.Item;
 import com.outbound.repository.GearListRepository;
-import com.outbound.repository.ItemRepository;
 import com.outbound.repository.UserRepository;
 
 @Service
@@ -23,8 +22,7 @@ public class GearListServiceImpl implements GearListService {
 	@Autowired
 	private UserRepository userRepo;
 
-	@Autowired
-	private ItemRepository itemRepo;
+	
 
 	@Override
 	public List<GearList> indexByUser(String username) {
@@ -59,35 +57,59 @@ public class GearListServiceImpl implements GearListService {
 		return null;
 	}
 
+	
+
+	
+	
+	
 	@Override
-	public GearList addItemToGearList(String username, int gearListId, int itemId) {
+	public GearList addItemsToGearList(String username, int gearListId, List<Item> items) {
 		User user = userRepo.findByUsername(username);
 		if (user != null) {
-			System.out.println("gear list id: " + gearListId);
+
+			// Find the gear list that is going to be edited
 			GearList managed = gearRepo.findByUser_UsernameAndId(username, gearListId);
-			System.out.println(managed.getId());
+			// if the list was created by the same person logged in then..
 			if (managed != null && managed.getUser().getUsername().equals(username)) {
 
-				Optional<Item> op = itemRepo.findById(itemId);
-				System.out.println(itemId);
-
-				if (op.isPresent()) {
-
-					Item item = op.get();
-					System.out.println("item is: " + item);
-
-					managed.addItems(item);
-					System.out.println(managed.getItems());
-					gearRepo.saveAndFlush(managed);
-					return managed;
-
-				}
+			List<Item> currentInventory = managed.getItems();
+			
+			for(Item item : items) {
+				
+				currentInventory.add(item);
 			}
+			managed.setItems(currentInventory);
+			gearRepo.saveAndFlush(managed);
+			return managed;
 
 		}
-
+	}
 		return null;
 	}
+//	@Override
+//	public GearList addItemsToGearList(String username, int gearListId, int itemId) {
+//		User user = userRepo.findByUsername(username);
+//		if (user != null) {
+//			GearList managed = gearRepo.findByUser_UsernameAndId(username, gearListId);
+//			if (managed != null && managed.getUser().getUsername().equals(username)) {
+//				
+//				Optional<Item> op = itemRepo.findById(itemId);
+//				
+//				if (op.isPresent()) {
+//					
+//					Item item = op.get();
+//					
+//					managed.addItems(item);
+//					gearRepo.saveAndFlush(managed);
+//					return managed;
+//					
+//				}
+//			}
+//			
+//		}
+//		
+//		return null;
+//	}
 
 	@Override
 	public GearList updateList(String username, GearList list, int listId) {
@@ -129,7 +151,7 @@ public class GearListServiceImpl implements GearListService {
 			}
 		}
 		return null;
-		
+
 	}
 
 	@Override
