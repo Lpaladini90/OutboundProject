@@ -27,7 +27,7 @@ public class ItemController {
 
 	@Autowired
 	private ItemService itemServ;
-	
+
 	@Autowired
 	private ItemCategoryService itemCatServ;
 
@@ -76,37 +76,40 @@ public class ItemController {
 	}
 
 	@GetMapping("items/category/{catId}")
-	public List<Item> searchByCategory(@PathVariable("catId") int catId, Principal principal,
-			HttpServletResponse res) {
+	public List<Item> searchByCategory(@PathVariable("catId") int catId, Principal principal, HttpServletResponse res) {
 		return itemServ.findByCatId(principal.getName(), catId);
-				 
 
 	}
-	
+
 	@GetMapping("items/categorysearch/{typeName}")
-	public List<Item> findByCatName(@PathVariable("typeName")String typeName,
-			Principal principal, 
-			HttpServletResponse res){
+	public List<Item> findByCatName(@PathVariable("typeName") String typeName, Principal principal,
+			HttpServletResponse res) {
 		return itemServ.findByCategoryName(principal.getName(), typeName);
 	}
 
-	
 //	------------------------------------------------------------------------------------------------------------
-	
-	
+
 //	Item Category Methods Below 
-	
-	
-	
+
 	@GetMapping("itemcategories")
-	public List<ItemCategory> indexAllCategories(Principal principal, HttpServletResponse res){
-		
+	public List<ItemCategory> indexAllCategories(Principal principal, HttpServletResponse res) {
+
 		return itemCatServ.indexAllItemCategories(principal.getName());
-		
+
 	}
-	
-	
-	
+
+	@GetMapping("itemcategories/{itemCatId}")
+	public ItemCategory findByCatById(@PathVariable("itemCatId") int itemCatId, Principal principal,
+			HttpServletResponse res) {
+
+		return itemCatServ.findById(principal.getName(), itemCatId);
+	}
+
+	@PostMapping("itemcategories")
+	public ItemCategory createCategory(@RequestBody ItemCategory itemCat, Principal principal, HttpServletResponse res) {
+		
+		return itemCatServ.createCategory(principal.getName(), itemCat);
+	}
 	
 	
 	
