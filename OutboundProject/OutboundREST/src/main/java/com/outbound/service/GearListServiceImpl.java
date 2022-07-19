@@ -1,8 +1,6 @@
 
 package com.outbound.service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +11,6 @@ import com.outbound.entities.GearList;
 import com.outbound.entities.User;
 import com.outbound.entities.inventory.Item;
 import com.outbound.repository.GearListRepository;
-import com.outbound.repository.ItemRepository;
 import com.outbound.repository.UserRepository;
 
 @Service
@@ -25,8 +22,7 @@ public class GearListServiceImpl implements GearListService {
 	@Autowired
 	private UserRepository userRepo;
 
-	@Autowired
-	private ItemRepository itemRepo;
+	
 
 	@Override
 	public List<GearList> indexByUser(String username) {

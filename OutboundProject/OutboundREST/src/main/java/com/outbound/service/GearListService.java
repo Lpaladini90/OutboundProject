@@ -1,6 +1,5 @@
 package com.outbound.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.outbound.entities.GearList;

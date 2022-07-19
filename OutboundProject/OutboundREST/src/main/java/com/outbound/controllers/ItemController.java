@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.outbound.entities.inventory.Item;
+import com.outbound.entities.inventory.ItemCategory;
+import com.outbound.service.ItemCategoryService;
 import com.outbound.service.ItemService;
 
 @RestController
@@ -25,6 +27,9 @@ public class ItemController {
 
 	@Autowired
 	private ItemService itemServ;
+	
+	@Autowired
+	private ItemCategoryService itemCatServ;
 
 	@GetMapping("items")
 	public List<Item> indexAllItems(Principal principal, HttpServletResponse res) {
@@ -85,4 +90,26 @@ public class ItemController {
 		return itemServ.findByCategoryName(principal.getName(), typeName);
 	}
 
+	
+//	------------------------------------------------------------------------------------------------------------
+	
+	
+//	Item Category Methods Below 
+	
+	
+	
+	@GetMapping("itemcategories")
+	public List<ItemCategory> indexAllCategories(Principal principal, HttpServletResponse res){
+		
+		return itemCatServ.indexAllItemCategories(principal.getName());
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }
