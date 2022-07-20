@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -111,7 +112,24 @@ public class ItemController {
 		return itemCatServ.createCategory(principal.getName(), itemCat);
 	}
 	
+	@PutMapping("itemcategories/{itemCatId}")
+	public ItemCategory updateCategory(@PathVariable("itemCatId")int itemCatId,@RequestBody ItemCategory itemCat, Principal principal, HttpServletResponse res) {
+		
+		
+		
+		return itemCatServ.updateCategory(principal.getName(), itemCatId, itemCat);
+	}
 	
+	
+	
+	
+	@DeleteMapping("itemcategories/{itemCatId}")
+	public void deleteCategory(@PathVariable("itemCatId") int itemCatId, Principal principal, HttpServletResponse res ) {
+		
+		itemCatServ.deleteCategory(principal.getName(), itemCatId);
+		
+		
+	}
 	
 	
 	

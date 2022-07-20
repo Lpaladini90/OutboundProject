@@ -55,22 +55,8 @@ public class ItemCategoryServiceImpl implements ItemCategoryService {
 
 		if (user != null) {
 
-			List<ItemCategory> cats = itemCatRepo.findAll();
-
-			for (ItemCategory cat : cats) {
-
-				if (cat.getTypeName().equals(itemCat.getTypeName())) {
-
-					
-					return null;
-
-				}else {
-					itemCatRepo.saveAndFlush(itemCat);
-					return itemCat;
-				}
-
-			}
-
+		 itemCat = itemCatRepo.saveAndFlush(itemCat);
+		 return itemCat;
 		}
 
 		return null;
@@ -81,11 +67,17 @@ public class ItemCategoryServiceImpl implements ItemCategoryService {
 		User user = userRepo.findByUsername(username);
 
 		if (user != null) {
+		Optional<ItemCategory> itemCatOp = itemCatRepo.findById(itemCatId);
+		if(itemCatOp.isPresent()) {
+			ItemCategory managed = itemCatOp.get();
 			
+			managed.setTypeName(itemCat.getTypeName());
+			itemCatRepo.saveAndFlush(managed);
+			return managed;
 		}
 		
-		
-		
+		}
+
 		return null;
 	}
 
@@ -93,11 +85,42 @@ public class ItemCategoryServiceImpl implements ItemCategoryService {
 	public ItemCategory disableCategory(String username, int itemCatId, ItemCategory itemCat) {
 		User user = userRepo.findByUsername(username);
 
-		if (user != null) {	
-		}return null;
+		if (user != null) {
 		}
+		return null;
 	}
 
+	
+	@Override
+	public boolean deleteCategory(String username, int itemCatId) {
+		boolean deleted = false;
+		User user = userRepo.findByUsername(username);
+		
+		if(user !=null) {
+			
+			Optional<ItemCategory> catOp =  itemCatRepo.findById(itemCatId);	
+			if(catOp.isPresent()) {
+				
+				ItemCategory itemCat = catOp.get();
+				
+				if(itemCat !=null) {
+					itemCatRepo.delete(itemCat);
+					deleted = true;
+					return deleted;
+				}
+				
+			}
+			
+			
+			
+		}
+		
+		
+		
+		return deleted;
+		
+	}
+	
 	@Override
 	public List<ItemCategory> findByType(String username, String keyword) {
 		User user = userRepo.findByUsername(username);
@@ -105,7 +128,5 @@ public class ItemCategoryServiceImpl implements ItemCategoryService {
 		if (user != null) {
 		}
 		return null;
-		}
 	}
-
 }

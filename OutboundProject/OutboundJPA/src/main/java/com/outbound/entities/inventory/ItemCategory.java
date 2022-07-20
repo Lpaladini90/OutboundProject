@@ -72,14 +72,7 @@ public class ItemCategory {
 		this.id = id;
 	}
 
-	public String getGearType() {
-		return typeName;
-	}
-
-	public void setGearType(String typeName) {
-		this.typeName = typeName;
-	}
-
+	
 	public String getTypeName() {
 		return typeName;
 	}
@@ -88,17 +81,17 @@ public class ItemCategory {
 		this.typeName = typeName;
 	}
 
-	// ------------- TO STRING -----------------
 	@Override
 	public String toString() {
-		return "ItemCategory [id=" + id + ", gearType=" + typeName + "]";
+		return "ItemCategory [id=" + id + ", typeName=" + typeName + ", items=" + items + ", weaponTypes=" + weaponTypes
+				+ "]";
 	}
 
 //	------------- HASHCODE & EQUALS -----------------
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(typeName, id);
+		return Objects.hash(id, items, typeName, weaponTypes);
 	}
 
 	@Override
@@ -110,7 +103,8 @@ public class ItemCategory {
 		if (getClass() != obj.getClass())
 			return false;
 		ItemCategory other = (ItemCategory) obj;
-		return Objects.equals(typeName, other.typeName) && Objects.equals(id, other.id);
+		return id == other.id && Objects.equals(items, other.items) && Objects.equals(typeName, other.typeName)
+				&& Objects.equals(weaponTypes, other.weaponTypes);
 	}
 
 }

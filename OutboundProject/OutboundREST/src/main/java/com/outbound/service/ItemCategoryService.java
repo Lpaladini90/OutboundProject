@@ -18,6 +18,8 @@ public interface ItemCategoryService {
 	 ItemCategory disableCategory(String username, int itemCatId, ItemCategory itemCat);
 	 
 	 List<ItemCategory> findByType(String username, String keyword);
+
+	boolean deleteCategory(String username, int itemCatId);
 	 
 	 
 	
