@@ -81,11 +81,26 @@ public class ItemCategoryServiceImpl implements ItemCategoryService {
 		return null;
 	}
 
+	
+
 	@Override
 	public ItemCategory disableCategory(String username, int itemCatId, ItemCategory itemCat) {
 		User user = userRepo.findByUsername(username);
 
 		if (user != null) {
+			
+			Optional<ItemCategory> catOp = itemCatRepo.findById(itemCatId);
+			if(catOp.isPresent()) {
+				
+				ItemCategory managed = catOp.get();
+				
+				if(managed != null) {
+					managed.setActive(false);
+					itemCatRepo.saveAndFlush(managed);
+				}
+				
+			}
+			
 		}
 		return null;
 	}

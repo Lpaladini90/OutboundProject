@@ -20,6 +20,8 @@ public class ClothingLayer {
 	private String type;
 	
 	private String description;
+	
+	private boolean active;
 
 	public ClothingLayer() {
 		super();
@@ -47,6 +49,16 @@ public class ClothingLayer {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	@Override

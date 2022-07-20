@@ -25,6 +25,7 @@ public class ItemCategory {
 	@Column(name = "type_name")
 	private String typeName;
 
+	private boolean active;
 //	------------------------ RELATIONSHIP FIELDS -----------------
 	@JsonIgnore
 	@OneToMany(mappedBy = "category")
@@ -79,6 +80,16 @@ public class ItemCategory {
 
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
+	}
+	
+	
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	@Override

@@ -120,8 +120,11 @@ public class ItemController {
 		return itemCatServ.updateCategory(principal.getName(), itemCatId, itemCat);
 	}
 	
-	
-	
+	@PutMapping("itemcategories/disable/{itemCatId}")
+	public ItemCategory disableCategory(@PathVariable("itemCatId")int itemCatId,@RequestBody ItemCategory itemCat, Principal principal, HttpServletResponse res) {
+		
+		return itemCatServ.disableCategory(principal.getName(), itemCatId, itemCat);
+	}
 	
 	@DeleteMapping("itemcategories/{itemCatId}")
 	public void deleteCategory(@PathVariable("itemCatId") int itemCatId, Principal principal, HttpServletResponse res ) {
