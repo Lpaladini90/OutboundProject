@@ -333,6 +333,7 @@ DROP TABLE IF EXISTS `item_category` ;
 CREATE TABLE IF NOT EXISTS `item_category` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `type_name` VARCHAR(200) NULL,
+  `active` TINYINT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -347,6 +348,7 @@ CREATE TABLE IF NOT EXISTS `weapon_type` (
   `name` VARCHAR(200) NULL,
   `description` VARCHAR(2000) NULL,
   `item_category_id` INT NOT NULL,
+  `active` TINYINT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_weapon_type_item_category1_idx` (`item_category_id` ASC),
   CONSTRAINT `fk_weapon_type_item_category1`
@@ -366,6 +368,7 @@ CREATE TABLE IF NOT EXISTS `clothing_layer` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `type` VARCHAR(45) NULL,
   `description` VARCHAR(45) NULL,
+  `active` TINYINT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -392,6 +395,7 @@ CREATE TABLE IF NOT EXISTS `clothing_category` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `type` VARCHAR(45) NULL,
   `item_category_id` INT NOT NULL,
+  `active` TINYINT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_clothing_category_item_category1_idx` (`item_category_id` ASC),
   CONSTRAINT `fk_clothing_category_item_category1`
@@ -805,15 +809,15 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `item_category` (`id`, `type_name`) VALUES (1, 'Backpack');
-INSERT INTO `item_category` (`id`, `type_name`) VALUES (2, 'Cooking');
-INSERT INTO `item_category` (`id`, `type_name`) VALUES (3, 'First Aid');
-INSERT INTO `item_category` (`id`, `type_name`) VALUES (4, 'Miscellaneous');
-INSERT INTO `item_category` (`id`, `type_name`) VALUES (5, 'Optics');
-INSERT INTO `item_category` (`id`, `type_name`) VALUES (6, 'Sleeping');
-INSERT INTO `item_category` (`id`, `type_name`) VALUES (7, 'Food');
-INSERT INTO `item_category` (`id`, `type_name`) VALUES (8, 'Clothing');
-INSERT INTO `item_category` (`id`, `type_name`) VALUES (9, 'Weapon');
+INSERT INTO `item_category` (`id`, `type_name`, `active`) VALUES (1, 'Backpack', 1);
+INSERT INTO `item_category` (`id`, `type_name`, `active`) VALUES (2, 'Cooking', 1);
+INSERT INTO `item_category` (`id`, `type_name`, `active`) VALUES (3, 'First Aid', 1);
+INSERT INTO `item_category` (`id`, `type_name`, `active`) VALUES (4, 'Miscellaneous', 1);
+INSERT INTO `item_category` (`id`, `type_name`, `active`) VALUES (5, 'Optics', 1);
+INSERT INTO `item_category` (`id`, `type_name`, `active`) VALUES (6, 'Sleeping', 1);
+INSERT INTO `item_category` (`id`, `type_name`, `active`) VALUES (7, 'Food', 1);
+INSERT INTO `item_category` (`id`, `type_name`, `active`) VALUES (8, 'Clothing', 1);
+INSERT INTO `item_category` (`id`, `type_name`, `active`) VALUES (9, 'Weapon', 1);
 
 COMMIT;
 
@@ -823,9 +827,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `weapon_type` (`id`, `name`, `description`, `item_category_id`) VALUES (1, 'Rifle', 'rifle ', 9);
-INSERT INTO `weapon_type` (`id`, `name`, `description`, `item_category_id`) VALUES (2, 'Bow', 'bow', 9);
-INSERT INTO `weapon_type` (`id`, `name`, `description`, `item_category_id`) VALUES (3, 'Muzzleloader', 'muzzleloader', 9);
+INSERT INTO `weapon_type` (`id`, `name`, `description`, `item_category_id`, `active`) VALUES (1, 'Rifle', 'rifle ', 9, 1);
+INSERT INTO `weapon_type` (`id`, `name`, `description`, `item_category_id`, `active`) VALUES (2, 'Bow', 'bow', 9, 1);
+INSERT INTO `weapon_type` (`id`, `name`, `description`, `item_category_id`, `active`) VALUES (3, 'Muzzleloader', 'muzzleloader', 9, 1);
 
 COMMIT;
 
@@ -835,9 +839,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `clothing_layer` (`id`, `type`, `description`) VALUES (1, 'Under Layer', 'Under layer');
-INSERT INTO `clothing_layer` (`id`, `type`, `description`) VALUES (2, 'Mid Layer', 'Mid layer');
-INSERT INTO `clothing_layer` (`id`, `type`, `description`) VALUES (3, 'Outer Layer', 'Outer layer');
+INSERT INTO `clothing_layer` (`id`, `type`, `description`, `active`) VALUES (1, 'Under Layer', 'Under layer', 1);
+INSERT INTO `clothing_layer` (`id`, `type`, `description`, `active`) VALUES (2, 'Mid Layer', 'Mid layer', 1);
+INSERT INTO `clothing_layer` (`id`, `type`, `description`, `active`) VALUES (3, 'Outer Layer', 'Outer layer', 1);
 
 COMMIT;
 
@@ -847,16 +851,16 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `outbounddb`;
-INSERT INTO `clothing_category` (`id`, `type`, `item_category_id`) VALUES (1, 'headwear', 8);
-INSERT INTO `clothing_category` (`id`, `type`, `item_category_id`) VALUES (2, 'neckwear', 8);
-INSERT INTO `clothing_category` (`id`, `type`, `item_category_id`) VALUES (3, 'top', 8);
-INSERT INTO `clothing_category` (`id`, `type`, `item_category_id`) VALUES (4, 'belt', 8);
-INSERT INTO `clothing_category` (`id`, `type`, `item_category_id`) VALUES (5, 'bottom', 8);
-INSERT INTO `clothing_category` (`id`, `type`, `item_category_id`) VALUES (6, 'socks', 8);
-INSERT INTO `clothing_category` (`id`, `type`, `item_category_id`) VALUES (7, 'footwear', 8);
-INSERT INTO `clothing_category` (`id`, `type`, `item_category_id`) VALUES (8, 'watch', 8);
-INSERT INTO `clothing_category` (`id`, `type`, `item_category_id`) VALUES (9, 'gloves', 8);
-INSERT INTO `clothing_category` (`id`, `type`, `item_category_id`) VALUES (10, 'eyewear', 8);
+INSERT INTO `clothing_category` (`id`, `type`, `item_category_id`, `active`) VALUES (1, 'headwear', 8, 1);
+INSERT INTO `clothing_category` (`id`, `type`, `item_category_id`, `active`) VALUES (2, 'neckwear', 8, 1);
+INSERT INTO `clothing_category` (`id`, `type`, `item_category_id`, `active`) VALUES (3, 'top', 8, 1);
+INSERT INTO `clothing_category` (`id`, `type`, `item_category_id`, `active`) VALUES (4, 'belt', 8, 1);
+INSERT INTO `clothing_category` (`id`, `type`, `item_category_id`, `active`) VALUES (5, 'bottom', 8, 1);
+INSERT INTO `clothing_category` (`id`, `type`, `item_category_id`, `active`) VALUES (6, 'socks', 8, 1);
+INSERT INTO `clothing_category` (`id`, `type`, `item_category_id`, `active`) VALUES (7, 'footwear', 8, 1);
+INSERT INTO `clothing_category` (`id`, `type`, `item_category_id`, `active`) VALUES (8, 'watch', 8, 1);
+INSERT INTO `clothing_category` (`id`, `type`, `item_category_id`, `active`) VALUES (9, 'gloves', 8, 1);
+INSERT INTO `clothing_category` (`id`, `type`, `item_category_id`, `active`) VALUES (10, 'eyewear', 8, 1);
 
 COMMIT;
 
