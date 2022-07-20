@@ -1,4 +1,4 @@
-package com.outbound.service;
+package com.outbound.service.inventory;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public interface ItemCategoryService {
 	 
 	 List<ItemCategory> findByType(String username, String keyword);
 
-	boolean deleteCategory(String username, int itemCatId);
+	 boolean deleteCategory(String username, int itemCatId);
 	 
 	 
 	

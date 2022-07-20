@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.outbound.entities.Trip;
-import com.outbound.entities.User;
 
 public interface TripRepository extends JpaRepository<Trip, Integer> {
 

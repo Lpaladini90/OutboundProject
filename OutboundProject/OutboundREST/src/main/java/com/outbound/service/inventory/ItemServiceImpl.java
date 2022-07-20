@@ -1,4 +1,4 @@
-package com.outbound.service;
+package com.outbound.service.inventory;
 
 import java.util.ArrayList;
 import java.util.List;

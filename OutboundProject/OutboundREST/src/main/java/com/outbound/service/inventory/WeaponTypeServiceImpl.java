@@ -1,4 +1,4 @@
-package com.outbound.service;
+package com.outbound.service.inventory;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +10,7 @@ import com.outbound.entities.User;
 import com.outbound.entities.inventory.WeaponType;
 import com.outbound.repository.UserRepository;
 import com.outbound.repository.WeaponTypeRepository;
+import com.outbound.service.AuthService;
 
 @Service
 public class WeaponTypeServiceImpl implements WeaponTypeService {

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.outbound.entities.Trip;
 import com.outbound.service.TripService;
-import com.outbound.service.UserService;
 
 @RestController
 @RequestMapping("api")
@@ -28,8 +27,7 @@ public class TripController {
 	@Autowired
 	private TripService tripServ;
 	
-	@Autowired
-	private UserService userServ;
+	
 
 	@GetMapping("trips")
 	public List<Trip> indexByUser(Principal principal, HttpServletResponse res) {

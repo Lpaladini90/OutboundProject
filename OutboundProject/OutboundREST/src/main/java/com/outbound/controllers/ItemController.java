@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.internal.build.AllowPrintStacktrace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,12 +16,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.outbound.entities.inventory.ClothingCategory;
+import com.outbound.entities.inventory.ClothingLayer;
 import com.outbound.entities.inventory.Item;
 import com.outbound.entities.inventory.ItemCategory;
 import com.outbound.entities.inventory.WeaponType;
-import com.outbound.service.ItemCategoryService;
-import com.outbound.service.ItemService;
-import com.outbound.service.WeaponTypeService;
+import com.outbound.service.inventory.ClothingCategoryService;
+import com.outbound.service.inventory.ClothingLayerService;
+import com.outbound.service.inventory.ItemCategoryService;
+import com.outbound.service.inventory.ItemService;
+import com.outbound.service.inventory.WeaponTypeService;
 
 @RestController
 @RequestMapping("api")
@@ -37,6 +40,12 @@ public class ItemController {
 
 	@Autowired
 	private WeaponTypeService weaponServ;
+
+	@Autowired
+	private ClothingLayerService layerServ;
+
+	@Autowired
+	private ClothingCategoryService catServ;
 
 	@GetMapping("items")
 	public List<Item> indexAllItems(Principal principal, HttpServletResponse res) {
@@ -179,19 +188,93 @@ public class ItemController {
 		return weaponServ.disableWeaponType(principal.getName(), weaponTypeId, weaponType);
 
 	}
-	
+
 	@DeleteMapping("weapontypes/{id}")
-	public void deleteWeaponType(@PathVariable("id")int weaponTypeId, Principal principal, HttpServletResponse res) {
-		
-			weaponServ.deleteWeaponType(principal.getName(), weaponTypeId);
-		
+	public void deleteWeaponType(@PathVariable("id") int weaponTypeId, Principal principal, HttpServletResponse res) {
+
+		weaponServ.deleteWeaponType(principal.getName(), weaponTypeId);
+
 	}
-	
+
 	@GetMapping("weapontypes/search/{keyword}")
-	public List<WeaponType> searchWeaponTypes(@PathVariable("keyword") String keyword, Principal principal, HttpServletResponse res) {
-		
+	public List<WeaponType> searchWeaponTypes(@PathVariable("keyword") String keyword, Principal principal,
+			HttpServletResponse res) {
+
 		return weaponServ.findByTypeName(principal.getName(), keyword);
 	}
+
+//	------------ Clothing Layer Methods Below ----------------------------------------------
+
+	@GetMapping("clothinglayers")
+	public List<ClothingLayer> findAllLayers(Principal principal, HttpServletResponse res) {
+
+		return layerServ.indexAllLayers(principal.getName());
+
+	}
+
+	@GetMapping("clothinglayers/{layerId}")
+	public ClothingLayer findByLayerId(@PathVariable("layerId") int layerId, Principal principal,
+			HttpServletResponse res) {
+
+		return layerServ.findById(principal.getName(), layerId);
+	}
+
+	@PostMapping("clothinglayers")
+	public ClothingLayer createLauer(@RequestBody ClothingLayer layer, Principal principal, HttpServletResponse res) {
+
+		return layerServ.createLayer(principal.getName(), layer);
+
+	}
+
+	@PutMapping("clothinglayers/{layerId}")
+	public ClothingLayer updateLayer(@PathVariable("layerId") int layerId, @RequestBody ClothingLayer layer,
+			Principal principal, HttpServletResponse res) {
+
+		return layerServ.updateLayer(principal.getName(), layerId, layer);
+
+	}
+
+	@GetMapping("clothinglayers/search/{keyword}")
+	public List<ClothingLayer> searchByLayer(@PathVariable("keyword") String keyword, Principal principal,
+			HttpServletResponse res) {
+
+		return layerServ.findByType(principal.getName(), keyword);
+	}
+
+//	-------------- Clothing Category Methods Below ----------------------------------------------
+
+	@GetMapping("clothingcategories")
+	public List<ClothingCategory> findAll(Principal principal, HttpServletResponse res) {
+		return catServ.indexAllItemCategories(principal.getName());
+	}
+	
+	@GetMapping("clothingcategories/{id}")
+	public ClothingCategory findByCategoryId(@PathVariable("id")int catId, Principal principal, HttpServletResponse res) {
+		return catServ.findById(principal.getName(), catId);
+	}
+	
+	@PostMapping("clothingcategories")
+	public ClothingCategory createCategory(@RequestBody ClothingCategory cat, Principal principal, HttpServletResponse res) {
+		return catServ.createCategory(principal.getName(), cat);
+	}
+	
+	@PutMapping("clothingcategories/{id}")
+	public ClothingCategory updateCategory(@PathVariable("id")int catId, @RequestBody ClothingCategory cat, Principal principal, HttpServletResponse res) {
+		
+		return catServ.updateCategory(principal.getName(), catId, cat);
+	}
+	
+	@GetMapping("clothingcategories/search/{keyword}")
+	public List<ClothingCategory> searchByType(@PathVariable("keyword") String keyword, Principal principal, HttpServletResponse res){
+		return catServ.findByType(principal.getName(), keyword);
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 
 }
