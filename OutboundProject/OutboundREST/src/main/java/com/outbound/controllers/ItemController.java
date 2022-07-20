@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.internal.build.AllowPrintStacktrace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,8 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.outbound.entities.inventory.Item;
 import com.outbound.entities.inventory.ItemCategory;
+import com.outbound.entities.inventory.WeaponType;
 import com.outbound.service.ItemCategoryService;
 import com.outbound.service.ItemService;
+import com.outbound.service.WeaponTypeService;
 
 @RestController
 @RequestMapping("api")
@@ -31,6 +34,9 @@ public class ItemController {
 
 	@Autowired
 	private ItemCategoryService itemCatServ;
+
+	@Autowired
+	private WeaponTypeService weaponServ;
 
 	@GetMapping("items")
 	public List<Item> indexAllItems(Principal principal, HttpServletResponse res) {
@@ -107,33 +113,85 @@ public class ItemController {
 	}
 
 	@PostMapping("itemcategories")
-	public ItemCategory createCategory(@RequestBody ItemCategory itemCat, Principal principal, HttpServletResponse res) {
-		
+	public ItemCategory createCategory(@RequestBody ItemCategory itemCat, Principal principal,
+			HttpServletResponse res) {
+
 		return itemCatServ.createCategory(principal.getName(), itemCat);
 	}
-	
+
 	@PutMapping("itemcategories/{itemCatId}")
-	public ItemCategory updateCategory(@PathVariable("itemCatId")int itemCatId,@RequestBody ItemCategory itemCat, Principal principal, HttpServletResponse res) {
-		
-		
-		
+	public ItemCategory updateCategory(@PathVariable("itemCatId") int itemCatId, @RequestBody ItemCategory itemCat,
+			Principal principal, HttpServletResponse res) {
+
 		return itemCatServ.updateCategory(principal.getName(), itemCatId, itemCat);
 	}
-	
+
 	@PutMapping("itemcategories/disable/{itemCatId}")
-	public ItemCategory disableCategory(@PathVariable("itemCatId")int itemCatId,@RequestBody ItemCategory itemCat, Principal principal, HttpServletResponse res) {
-		
+	public ItemCategory disableCategory(@PathVariable("itemCatId") int itemCatId, @RequestBody ItemCategory itemCat,
+			Principal principal, HttpServletResponse res) {
+
 		return itemCatServ.disableCategory(principal.getName(), itemCatId, itemCat);
 	}
-	
+
 	@DeleteMapping("itemcategories/{itemCatId}")
-	public void deleteCategory(@PathVariable("itemCatId") int itemCatId, Principal principal, HttpServletResponse res ) {
-		
+	public void deleteCategory(@PathVariable("itemCatId") int itemCatId, Principal principal, HttpServletResponse res) {
+
 		itemCatServ.deleteCategory(principal.getName(), itemCatId);
+
+	}
+
+//	------------- Weapon Type Methods Below ----------------------------------------------------------------------
+
+	@GetMapping("weapontypes")
+	public List<WeaponType> indexAllTypes(Principal principal, HttpServletResponse res) {
+
+		return weaponServ.indexAllWeaponTypes(principal.getName());
+	}
+
+	@GetMapping("weapontypes/{id}")
+	public WeaponType findByWeaponId(@PathVariable("id") int weaponTypeId, Principal principal,
+			HttpServletResponse res) {
+
+		return weaponServ.findById(principal.getName(), weaponTypeId);
+
+	}
+
+	@PostMapping("weapontypes")
+	public WeaponType createWeaponType(@RequestBody WeaponType weaponType, Principal principal,
+			HttpServletResponse res) {
+
+		return weaponServ.createWeaponType(principal.getName(), weaponType);
+
+	}
+
+	@PutMapping("weapontypes/{id}")
+	public WeaponType updateWeaponType(@PathVariable("id") int weaponTypeId, @RequestBody WeaponType weaponType,
+			Principal principal, HttpServletResponse res) {
+
+		return weaponServ.updateWeaponType(principal.getName(), weaponTypeId, weaponType);
+
+	}
+
+	@PutMapping("weapontypes/disable/{id}")
+	public WeaponType disableWeaponType(@PathVariable("id") int weaponTypeId, @RequestBody WeaponType weaponType,
+			Principal principal, HttpServletResponse res) {
+
+		return weaponServ.disableWeaponType(principal.getName(), weaponTypeId, weaponType);
+
+	}
+	
+	@DeleteMapping("weapontypes/{id}")
+	public void deleteWeaponType(@PathVariable("id")int weaponTypeId, Principal principal, HttpServletResponse res) {
 		
+			weaponServ.deleteWeaponType(principal.getName(), weaponTypeId);
 		
 	}
 	
+	@GetMapping("weapontypes/search/{keyword}")
+	public List<WeaponType> searchWeaponTypes(@PathVariable("keyword") String keyword, Principal principal, HttpServletResponse res) {
+		
+		return weaponServ.findByTypeName(principal.getName(), keyword);
+	}
 	
-	
+
 }
