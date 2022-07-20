@@ -36,6 +36,9 @@ public class Item {
 	private double weight;
 
 	private boolean active;
+	
+	@Column(name="image_url")
+	private String imageUrl;
 //	------------------------ RELATIONSHIP FIELDS -----------------
 
 	@ManyToOne
@@ -149,8 +152,18 @@ public class Item {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+	
+	
 
 //	------------- TO STRING -----------------
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 
 	@Override
 	public String toString() {

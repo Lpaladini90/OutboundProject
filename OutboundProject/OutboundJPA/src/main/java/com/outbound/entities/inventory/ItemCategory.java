@@ -35,6 +35,10 @@ public class ItemCategory {
 	@OneToMany(mappedBy="category")
 	private List<WeaponType> weaponTypes;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy="category")
+	private List<ClothingCategory> clothingCategories;
+	
 	
 //	------------- CONSTRUCTORS -----------------
 
@@ -61,8 +65,19 @@ public class ItemCategory {
 	public void setItems(List<Item> items) {
 		this.items = items;
 	}
+	
+	
+	public List<ClothingCategory> getClothingCategories() {
+		return clothingCategories;
+	}
+	
+	public void setClothingCategories(List<ClothingCategory> clothingCategories) {
+		this.clothingCategories = clothingCategories;
+	}
+	
 
 //	------------- GETTERS / SETTERS -----------------
+
 
 
 	public int getId() {
@@ -94,15 +109,15 @@ public class ItemCategory {
 
 	@Override
 	public String toString() {
-		return "ItemCategory [id=" + id + ", typeName=" + typeName + ", items=" + items + ", weaponTypes=" + weaponTypes
-				+ "]";
+		return "ItemCategory [id=" + id + ", typeName=" + typeName + ", active=" + active + ", items=" + items
+				+ ", weaponTypes=" + weaponTypes + ", clothingCategories=" + clothingCategories + "]";
 	}
 
 //	------------- HASHCODE & EQUALS -----------------
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, items, typeName, weaponTypes);
+		return Objects.hash(active, clothingCategories, id, items, typeName, weaponTypes);
 	}
 
 	@Override
@@ -114,7 +129,8 @@ public class ItemCategory {
 		if (getClass() != obj.getClass())
 			return false;
 		ItemCategory other = (ItemCategory) obj;
-		return id == other.id && Objects.equals(items, other.items) && Objects.equals(typeName, other.typeName)
+		return active == other.active && Objects.equals(clothingCategories, other.clothingCategories) && id == other.id
+				&& Objects.equals(items, other.items) && Objects.equals(typeName, other.typeName)
 				&& Objects.equals(weaponTypes, other.weaponTypes);
 	}
 

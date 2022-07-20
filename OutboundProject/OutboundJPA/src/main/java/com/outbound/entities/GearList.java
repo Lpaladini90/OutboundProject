@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,6 +31,11 @@ public class GearList {
 	private String description;
 
 	private boolean active;
+	
+	@Column(name="image_url")
+	private String imageUrl;
+	
+	private double totalWeight;
 
 //	------------------------ RELATIONSHIP FIELDS -----------------
 
@@ -39,7 +45,9 @@ public class GearList {
 	private User user;
 
 	@ManyToMany
-	@JoinTable(name = "gear_list_has_item", joinColumns = @JoinColumn(name = "gear_list_id"), inverseJoinColumns = @JoinColumn(name = "item_id"))
+	@JoinTable(name = "gear_list_has_item", 
+	joinColumns = @JoinColumn(name = "gear_list_id"), 
+	inverseJoinColumns = @JoinColumn(name = "item_id"))
 	private List<Item> items;
 
 //	------------- CONSTRUCTORS -----------------
@@ -126,8 +134,26 @@ public class GearList {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
+	
 
 //	------------- TO STRING -----------------
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public double getTotalWeight() {
+		return totalWeight;
+	}
+
+	public void setTotalWeight(double totalWeight) {
+		this.totalWeight = totalWeight;
+	}
 
 	@Override
 	public String toString() {

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.outbound.entities.User;
 import com.outbound.entities.inventory.ClothingCategory;
 import com.outbound.repository.ClothingCategoryRepository;
+import com.outbound.repository.UserRepository;
 import com.outbound.service.AuthService;
 
 @Service
@@ -17,6 +18,9 @@ public class ClothingCategoryServiceImpl implements ClothingCategoryService {
 	@Autowired
 	private ClothingCategoryRepository catRepo;
 
+	@Autowired
+	private UserRepository userRepo;
+	
 	@Autowired
 	AuthService authServ;
 
@@ -53,12 +57,11 @@ public class ClothingCategoryServiceImpl implements ClothingCategoryService {
 
 	@Override
 	public ClothingCategory createCategory(String username, ClothingCategory cat) {
-
-		User user = authServ.getUserByUsername(username);
-
-		if (user != null) {
-			ClothingCategory newCat = catRepo.saveAndFlush(cat);
-			return newCat;
+		User user = userRepo.findByUsername(username);
+		
+		if(user!=null) {
+			return catRepo.saveAndFlush(cat );
+			
 
 		}
 		return null;
@@ -115,7 +118,7 @@ public class ClothingCategoryServiceImpl implements ClothingCategoryService {
 		if (user != null) {
 		String search = "%" + keyword + "%";
 		
-		List<ClothingCategory> searchResults = catRepo.findByTypeLike(username, search);
+		List<ClothingCategory> searchResults = catRepo.findByTypeLike(search);
 		
 		return searchResults;
 		}

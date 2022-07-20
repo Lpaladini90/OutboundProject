@@ -255,8 +255,15 @@ public class ItemController {
 	
 	@PostMapping("clothingcategories")
 	public ClothingCategory createCategory(@RequestBody ClothingCategory cat, Principal principal, HttpServletResponse res) {
+		
+		System.out.println("inside");
 		return catServ.createCategory(principal.getName(), cat);
 	}
+	
+	
+	
+	
+	
 	
 	@PutMapping("clothingcategories/{id}")
 	public ClothingCategory updateCategory(@PathVariable("id")int catId, @RequestBody ClothingCategory cat, Principal principal, HttpServletResponse res) {

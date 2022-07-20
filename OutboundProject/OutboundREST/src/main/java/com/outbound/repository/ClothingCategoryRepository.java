@@ -9,5 +9,5 @@ import com.outbound.entities.inventory.ClothingCategory;
 public interface ClothingCategoryRepository extends JpaRepository<ClothingCategory, Integer> {
 
 	
-	List<ClothingCategory> findByTypeLike(String username, String keyword);
+	List<ClothingCategory> findByTypeLike(String keyword);
 }

@@ -8,7 +8,7 @@ import com.outbound.entities.inventory.ItemCategory;
 
 public interface ItemCategoryRepository extends JpaRepository<ItemCategory, Integer> {
 	
-	List<ItemCategory> findByTypeNameLike(String username, String keyword);
+	List<ItemCategory> findByTypeNameLike( String keyword);
 	
 
 }

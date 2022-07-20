@@ -18,6 +18,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccountComponent } from './components/account/account.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
+import { InventoryComponent } from './components/inventory/inventory.component';
+import { GearlistComponent } from './components/gearlist/gearlist.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { MatSliderModule } from '@angular/material/slider';
     ContactComponent,
     AboutComponent,
     FooterComponent,
-    AccountComponent
+    AccountComponent,
+    InventoryComponent,
+    GearlistComponent
   ],
   imports: [
     BrowserModule,
