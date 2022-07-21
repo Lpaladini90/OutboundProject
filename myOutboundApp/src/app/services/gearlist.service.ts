@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
+import { Item } from '../models/item';
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +66,21 @@ public createGearList(gearList : Gearlist){
     );
 }
 
+public addItemsToGearList(gearListId:number, items:Item[]){
+    return this.http.put<Gearlist>(this.url + "/" + gearListId + "/additems", items, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(() => {
+          new Error('adding items to user gearlist has an error');
+        });
+      })
+    )
+
+}
+
+
+
+
 
 public updateGearList(gearList: Gearlist, gearListId: number){
   return this.http.put<Gearlist>(this.url + "/" + gearListId, gearList, this.getHttpOptions()).pipe(
@@ -77,6 +93,30 @@ public updateGearList(gearList: Gearlist, gearListId: number){
   )
 }
 
+public disableGearList(gearList : Gearlist, gearListId : number){
+
+  return this.http.put<Gearlist>(this.url + "/disable/" + gearListId, gearList, this.getHttpOptions()).pipe(
+    catchError((err: any) => {
+      console.log(err);
+      return throwError(() => {
+        new Error('disable user gear lists has an error');
+      });
+    })
+  )
+}
+
+
+public searchGearList(keyword : string){
+return this.http.put<Gearlist[]>(this.url, keyword, this.getHttpOptions()).pipe(
+
+  catchError((err: any) => {
+    console.log(err);
+    return throwError(() => {
+      new Error('search user gear lists has an error');
+    });
+  })
+);
+}
 
 
 
