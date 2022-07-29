@@ -2,6 +2,7 @@ package com.outbound.entities.inventory;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +20,8 @@ public class WeaponType {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private String name;
+	@Column(name="name")
+	private String type;
 	
 	private String description;
 	
@@ -62,11 +64,11 @@ public class WeaponType {
 	}
 
 	public String getName() {
-		return name;
+		return type;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.type = name;
 	}
 
 	public String getDescription() {
@@ -89,12 +91,12 @@ public class WeaponType {
 
 	@Override
 	public String toString() {
-		return "WeaponType [id=" + id + ", name=" + name + ", description=" + description + "]";
+		return "WeaponType [id=" + id + ", name=" + type + ", description=" + description + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, id, name);
+		return Objects.hash(description, id, type);
 	}
 
 	@Override
@@ -107,7 +109,7 @@ public class WeaponType {
 			return false;
 		WeaponType other = (WeaponType) obj;
 		return Objects.equals(description, other.description) && Objects.equals(id, other.id)
-				&& Objects.equals(name, other.name);
+				&& Objects.equals(type, other.type);
 	}
 	
 	

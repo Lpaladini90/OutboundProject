@@ -138,7 +138,7 @@ public class ItemServiceImpl implements ItemService {
 			List<Item> items = new ArrayList<>();
 			System.out.println("list should be empty " + items);
 			
-			items.addAll(itemRepo.findByCategory_typeName(typeName));
+			items.addAll(itemRepo.findByCategory_Type(typeName));
 			System.out.println("After " + items);
 			   return items;
 			

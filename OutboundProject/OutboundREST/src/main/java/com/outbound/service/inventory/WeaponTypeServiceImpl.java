@@ -135,7 +135,7 @@ public class WeaponTypeServiceImpl implements WeaponTypeService {
 
 		if (user != null) {
 
-			return weapRepo.findByNameLikeOrDescriptionLike(keyword, keyword);
+			return weapRepo.findByTypeLikeOrDescriptionLike(keyword, keyword);
 		}
 		return null;
 	}

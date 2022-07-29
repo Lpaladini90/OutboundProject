@@ -23,7 +23,7 @@ public class ItemCategory {
 	private int id;
 
 	@Column(name = "type_name")
-	private String typeName;
+	private String type;
 
 	private boolean active;
 //	------------------------ RELATIONSHIP FIELDS -----------------
@@ -90,11 +90,11 @@ public class ItemCategory {
 
 	
 	public String getTypeName() {
-		return typeName;
+		return type;
 	}
 
 	public void setTypeName(String typeName) {
-		this.typeName = typeName;
+		this.type = typeName;
 	}
 	
 	
@@ -109,7 +109,7 @@ public class ItemCategory {
 
 	@Override
 	public String toString() {
-		return "ItemCategory [id=" + id + ", typeName=" + typeName + ", active=" + active + ", items=" + items
+		return "ItemCategory [id=" + id + ", typeName=" + type + ", active=" + active + ", items=" + items
 				+ ", weaponTypes=" + weaponTypes + ", clothingCategories=" + clothingCategories + "]";
 	}
 
@@ -117,7 +117,7 @@ public class ItemCategory {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(active, clothingCategories, id, items, typeName, weaponTypes);
+		return Objects.hash(active, clothingCategories, id, items, type, weaponTypes);
 	}
 
 	@Override
@@ -130,7 +130,7 @@ public class ItemCategory {
 			return false;
 		ItemCategory other = (ItemCategory) obj;
 		return active == other.active && Objects.equals(clothingCategories, other.clothingCategories) && id == other.id
-				&& Objects.equals(items, other.items) && Objects.equals(typeName, other.typeName)
+				&& Objects.equals(items, other.items) && Objects.equals(type, other.type)
 				&& Objects.equals(weaponTypes, other.weaponTypes);
 	}
 
