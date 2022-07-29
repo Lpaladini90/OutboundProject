@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html @Html.Raw(KTTheme.printHtmlAttributes("html"))>
+<!--begin::Head-->
+
+<head>
+    <title>@ViewData["Title"] - Keenthemes</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="" />
+
+
+    <link rel="shortcut icon" href="@KTTheme.getFavicon()" />
+
+    <!--begin::Fonts-->
+    @foreach(string font in KTTheme.getFonts()){
+    <link rel="stylesheet" href="@font" />
+    }
+    <!--end::Fonts-->
+
+    <!--begin::Vendor Stylesheets(optional)-->
+    @foreach(string file in KTTheme.getVendors("Css")){
+    <link rel="stylesheet" type="text/css" href="@file" />
+    }
+    <!--end::Vendor Stylesheets-->
+
+    <!--begin::Global Stylesheets(mandatory)-->
+    @foreach(string file in KTTheme.getGlobalAssets("Css")){
+    <link rel="stylesheet" type="text/css" href="@file" />
+    }
+    <!--end::Global Stylesheets-->
+
+    <!--begin::Custom Stylesheets(optional)-->
+    @foreach(string file in KTTheme.getCssFiles()){
+    <link rel="stylesheet" type="text/css" href="@file" />
+    }
+    <!--end::Custom Stylesheets-->
+</head>
+<!--end::Head-->
+
+<!--begin::Body-->
+<!body @Html.Raw(KTTheme.printHtmlAttributes("body")) class='@KTTheme.printHtmlClasses("body")'>
+    <partial name="~/Views/Partials/ThemeMode/_Init.cshtml"></partial>
+
+    @RenderBody()
+
+    <!--begin::Global Javascript(mandatory)-->
+    @foreach (string file in KTTheme.getGlobalAssets("Js"))
+    {
+        <script src="@file"></script>
+    }
+    <!--end::Global Javascript-->
+
+    <!--begin::Vendors Javascript(optional)-->
+    @foreach (string file in KTTheme.getVendors("Js"))
+    {
+        <script src="@file"></script>
+    }
+    <!--end::Vendors Javascript-->
+
+    <!--begin::Custom Javascript(optional)-->
+    @foreach (string file in KTTheme.getJavascriptFiles())
+    {
+        <script src="@file"></script>
+    }
+    <!--end::Custom Javascript-->
+</!body>
+<!--end::Body-->
+
+</html>
