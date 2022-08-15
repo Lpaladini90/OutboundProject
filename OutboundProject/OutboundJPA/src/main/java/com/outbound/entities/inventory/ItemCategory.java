@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "item_category")
 public class ItemCategory {
@@ -20,16 +23,21 @@ public class ItemCategory {
 	private int id;
 
 	@Column(name = "type_name")
-	private String typeName;
+	private String type;
 
+	private boolean active;
 //	------------------------ RELATIONSHIP FIELDS -----------------
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "category")
 	private List<Item> items;
 
-	
+	@JsonIgnore
 	@OneToMany(mappedBy="category")
 	private List<WeaponType> weaponTypes;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="category")
+	private List<ClothingCategory> clothingCategories;
 	
 	
 //	------------- CONSTRUCTORS -----------------
@@ -57,8 +65,19 @@ public class ItemCategory {
 	public void setItems(List<Item> items) {
 		this.items = items;
 	}
+	
+	
+	public List<ClothingCategory> getClothingCategories() {
+		return clothingCategories;
+	}
+	
+	public void setClothingCategories(List<ClothingCategory> clothingCategories) {
+		this.clothingCategories = clothingCategories;
+	}
+	
 
 //	------------- GETTERS / SETTERS -----------------
+
 
 
 	public int getId() {
@@ -69,33 +88,36 @@ public class ItemCategory {
 		this.id = id;
 	}
 
-	public String getGearType() {
-		return typeName;
-	}
-
-	public void setGearType(String typeName) {
-		this.typeName = typeName;
-	}
-
+	
 	public String getTypeName() {
-		return typeName;
+		return type;
 	}
 
 	public void setTypeName(String typeName) {
-		this.typeName = typeName;
+		this.type = typeName;
+	}
+	
+	
+
+	public boolean isActive() {
+		return active;
 	}
 
-	// ------------- TO STRING -----------------
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 	@Override
 	public String toString() {
-		return "ItemCategory [id=" + id + ", gearType=" + typeName + "]";
+		return "ItemCategory [id=" + id + ", typeName=" + type + ", active=" + active + ", items=" + items
+				+ ", weaponTypes=" + weaponTypes + ", clothingCategories=" + clothingCategories + "]";
 	}
 
 //	------------- HASHCODE & EQUALS -----------------
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(typeName, id);
+		return Objects.hash(active, clothingCategories, id, items, type, weaponTypes);
 	}
 
 	@Override
@@ -107,7 +129,9 @@ public class ItemCategory {
 		if (getClass() != obj.getClass())
 			return false;
 		ItemCategory other = (ItemCategory) obj;
-		return Objects.equals(typeName, other.typeName) && Objects.equals(id, other.id);
+		return active == other.active && Objects.equals(clothingCategories, other.clothingCategories) && id == other.id
+				&& Objects.equals(items, other.items) && Objects.equals(type, other.type)
+				&& Objects.equals(weaponTypes, other.weaponTypes);
 	}
 
 }

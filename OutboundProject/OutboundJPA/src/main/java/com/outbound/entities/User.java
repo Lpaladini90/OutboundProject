@@ -9,9 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
-import com.outbound.entities.inventory.Inventory;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.outbound.entities.inventory.Item;
+
+
 
 @Entity
 public class User {
@@ -28,24 +30,34 @@ public class User {
 
 	private String username;
 
-	private String password;
+	private String password; 
 
 	private String email;
 
 	private String role;
 
-	private boolean active;
+	private String biography;
+	
+	private boolean enabled;
+	
+	@Column(name = "image_url")
+	private String imageUrl;
 
 //	------------------------ RELATIONSHIP FIELDS -----------------
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Trip> trips;
 	
-	@OneToOne(mappedBy="user")
-	private Inventory inventory;
+	@JsonIgnore
+	@OneToMany(mappedBy="user")
+	private List<GearList> lists;
 
+	@JsonIgnore
+	@OneToMany(mappedBy="user")
+	private List<Item> items;
+	
 //	------------------------ CONSTRUCTORS -----------------
-
+ 
 	public User() {
 		super();
 	}
@@ -62,18 +74,25 @@ public class User {
 	}
 	
 	
-	public Inventory getInventory() {
-		return inventory;
-	}
 	
-	public void setInventory(Inventory inventory) {
-		this.inventory = inventory;
+
+	public List<Item> getItems() {
+		return items;
 	}
-	
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+
+	public List<GearList> getLists() {
+		return lists;
+	}
+
+	public void setLists(List<GearList> lists) {
+		this.lists = lists;
+	}
 
 //	------------------------ GETTERS/SETTERS -----------------
-
-
 	public int getId() {
 		return id;
 	}
@@ -88,6 +107,14 @@ public class User {
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	public String getLastName() {
@@ -130,27 +157,41 @@ public class User {
 		this.role = role;
 	}
 
-	public boolean isActive() {
-		return active;
+	
+
+	public String getBiography() {
+		return biography;
 	}
 
-	public void setActive(boolean active) {
-		this.active = active;
+	public void setBiography(String biography) {
+		this.biography = biography;
+	}
+	
+	
+
+	public String getImageUrl() {
+		return imageUrl;
 	}
 
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 //	------------- TO STRING -----------------
+
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username
-				+ ", password=" + password + ", email=" + email + ", role=" + role + ", active=" + active + "]";
+				+ ", password=" + password + ", email=" + email + ", role=" + role + ", biography=" + biography
+				+ ", enabled=" + enabled + ", imageUrl=" + imageUrl + ", trips=" + trips + ", lists=" + lists + "]";
 	}
 	
 //	------------- HASHCODE & EQUALS -----------------
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(active, email, firstName, id, lastName, password, role, trips, username);
+		return Objects.hash(biography, email, enabled, firstName, id, imageUrl, lastName, lists, password, role, trips,
+				username);
 	}
 
 	@Override
@@ -162,9 +203,10 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return active == other.active && Objects.equals(email, other.email)
-				&& Objects.equals(firstName, other.firstName) && id == other.id
-				&& Objects.equals(lastName, other.lastName) && Objects.equals(password, other.password)
+		return Objects.equals(biography, other.biography) && Objects.equals(email, other.email)
+				&& enabled == other.enabled && Objects.equals(firstName, other.firstName) && id == other.id
+				&& Objects.equals(imageUrl, other.imageUrl) && Objects.equals(lastName, other.lastName)
+				&& Objects.equals(lists, other.lists) && Objects.equals(password, other.password)
 				&& Objects.equals(role, other.role) && Objects.equals(trips, other.trips)
 				&& Objects.equals(username, other.username);
 	}

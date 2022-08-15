@@ -17,7 +17,6 @@
      
   
        <!-- Inventory Entities -->
-    <class>com.outbound.entities.inventory.Inventory</class>
     <class>com.outbound.entities.inventory.Item</class>
     <class>com.outbound.entities.inventory.ClothingCategory</class>
     <class>com.outbound.entities.inventory.ClothingLayer</class>
